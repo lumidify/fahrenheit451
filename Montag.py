@@ -13,7 +13,7 @@ class Montag(Character):
         super().__init__(screen, atlas, config, pos, direction, state, "Montag")
         self.pathfinding_grid = pathfinding_grid
         self.pressed = False
-        self.target_image = pygame.image.load("../graphics2/cursors/mouse_move_cursor_0.png").convert_alpha()
+        self.target_image = pygame.image.load("graphics/cursors/mouse_move_cursor_0.png").convert_alpha()
         self.last_mouse_pos = ()
     def update(self, current_time=None, event=None):
         if not self.dead:
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     screen_info = pygame.display.Info()
     screen_size = [screen_info.current_w, screen_info.current_h]
     screen = pygame.display.set_mode(screen_size, RESIZABLE)
-    character = Montag(screen, "../graphics2/droids/red_guard/atlas.txt", "../graphics2/droids/red_guard/config.txt", [3, 0])
+    character = Montag(screen, "graphics/droids/red_guard/atlas.txt", "graphics/droids/red_guard/config.txt", [3, 0])
     b = Engine(screen)
     b.load_tilemap("TheMap/map.floor", 0)
     b.add_layer()

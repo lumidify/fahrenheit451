@@ -2,8 +2,8 @@ import os
 import sys
 import random
 import pygame
-from Engine import Engine
-from Montag import Montag
+from Engine import *
+from Montag import *
 from Character import Character
 from pygame.locals import *
 
