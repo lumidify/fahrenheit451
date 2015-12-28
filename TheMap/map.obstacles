@@ -1,0 +1,26 @@
+***reserve obs***
+*obs 20
+id=yo
+x=1.2
+y=5.0
+
+***current obs***
+*obs 200
+x=3
+y=2
+*obs 50
+x=5
+y=3
+*obs 20
+id=bye
+x=3
+y=0
+*obs 30
+x=5
+y=5
+*obs -3
+x=7.5
+y=3
+*obs 2
+x=3.6
+y=4

@@ -1,0 +1,96 @@
+import os
+import sys
+import pygame
+from pygame.locals import *
+
+TILEWIDTH = 128
+TILEHEIGHT = 64
+
+FLOORPATH = os.path.join("graphics", "floor_tiles")
+OBSTACLEPATH = os.path.join("graphics", "obstacles")
+ITEMPATH = os.path.join("graphics", "items")
+
+class Tile():
+    def __init__(self, screen, tile_dict, grid_pos):
+        self.screen = screen
+        self.image = tile_dict["image"]
+        self.region = tile_dict["region"]
+        self.offset = tile_dict["offset"]
+        self.grid_pos = grid_pos
+        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (self.offset[0] + TILEWIDTH // 2)
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
+    def update(self, current_time=None):
+        pass
+    def draw(self, screen_offset):
+        self.screen.blit(self.image, (self.isox + screen_offset[0], self.isoy + screen_offset[1]), self.region)
+class AnimatedTile():
+    def __init__(self, screen, tile_dict, grid_pos):
+        self.screen = screen
+        self.images = [info["image"] for info in tile_dict["images"]]
+        self.regions = [info["region"] for info in tile_dict["images"]]
+        self.offsets = [info["offset"] for info in tile_dict["images"]]
+        self.grid_pos = grid_pos
+        self.update_interval = 1000 // tile_dict.get("fps", 30)
+        self.iso_positions = []
+        for offset in self.offsets:
+            isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (offset[0] + TILEWIDTH // 2)
+            isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + offset[1]
+            self.iso_positions.append([isox, isoy])
+        self.frame = 0
+        self.current_time = pygame.time.get_ticks()
+        self.time_passed = 0
+    def switch_frame(self):
+        self.frame += 1
+        if self.frame >= len(self.images):
+            self.frame = 0
+    def update(self, current_time=None):
+        if not current_time:
+            current_time = pygame.time.get_ticks()
+        change_in_time = current_time - self.current_time
+        self.time_passed += change_in_time
+        self.current_time += change_in_time
+        if self.time_passed >= self.update_interval:
+            self.switch_frame()
+            self.time_passed = 0
+    def draw(self, screen_offset):
+        self.screen.blit(self.images[self.frame], (self.iso_positions[self.frame][0] + screen_offset[0], self.iso_positions[self.frame][1] + screen_offset[1]), self.regions[self.frame])
+class Floor():
+    def __init__(self, screen, tiles):
+        self.screen = screen
+        self.tiles = tiles
+        self.layers = [[]]
+    def add_layer(self):
+        self.layers.append([])
+    def load_tilemap(self, tilemap_path, layer):
+        tilemap = []
+        with open(tilemap_path) as f:
+            for index, line in enumerate(f.readlines()):
+                tilemap.append([])
+                for index2, x in enumerate([int(x) for x in line.split()]):
+                    tilemap[index].append(self.create_tile(x, (index2, index)))
+        self.layers[layer] = tilemap
+    def replace_tile(self, tile_id, tile_pos, layer):
+        self.layers[layer][tile_pos[1]][tile_pos[0]] = self.create_tile(tile_id, tile_pos)
+    def create_tile(self, tile_id, grid_pos):
+        if tile_id == -1:
+            return None
+        else:
+            tile_dict = self.tiles[tile_id]
+            if tile_dict.get("image", None):
+                return Tile(self.screen, tile_dict, grid_pos)
+            else:
+                return AnimatedTile(self.screen, tile_dict, grid_pos)
+    def update(self, current_time=None):
+        if not current_time:
+            current_time = pygame.time.get_ticks()
+        for layer in self.layers:
+            for line in layer:
+                for tile in line:
+                    if tile:
+                        tile.update(current_time)
+    def draw(self, screen_offset):
+        for layer in self.layers:
+            for line in layer:
+                for tile in line:
+                    if tile:
+                        tile.draw(screen_offset)
