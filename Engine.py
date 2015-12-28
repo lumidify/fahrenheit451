@@ -48,7 +48,7 @@ if __name__ == "__main__":
     b = Engine(screen)
     b.load_tilemap("TheMap/map.floor", 0)
     b.load_obstaclemap("TheMap/map.obstacles", 0)
-    a = Montag(screen, "../graphics2/droids/blue_guard/atlas.txt", "../graphics2/droids/red_guard/config.txt", b.obstacles.grid, [3, 0])
+    a = Montag(screen, "graphics/droids/blue_guard/atlas.txt", "graphics/droids/red_guard/config.txt", b.obstacles.grid, [3, 0])
     while True:
         screen.fill((0, 0, 0))
         clock.tick(60)
