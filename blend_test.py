@@ -16,11 +16,12 @@ while True:
     c.blit(a, (pos[0] - 512, pos[1] - 256), None, BLEND_RGBA_SUB)
     screen.blit(c, (0, 0))
     pygame.display.update()"""
-a = pygame.image.load("portrait.png").convert_alpha()
+a = pygame.image.load("graphics/droids/blue_guard/blue_guard_1.png").convert_alpha()
 c = pygame.surface.Surface(a.get_size()).convert_alpha()
 c.fill((100, 100, 100, 0))
 c.blit(a, (0, 0), None, BLEND_RGBA_ADD)
 while True:
+    screen.fill((0, 0, 0))
     for event in pygame.event.get():
         if event.type == QUIT:
             raise Exception("YourMomError")

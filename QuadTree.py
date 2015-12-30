@@ -45,7 +45,6 @@ class QuadTree():
         self.rect_type = rect_type
         self.color = color
         self.branches = []
-
     def subdivide(self):
         for rect in self.split():
             self.branches.append(QuadTree(rect, self.level+1, self.maxlevel, self.maxparticles, [], self.rect_type, self.screen, self.color))
@@ -78,7 +77,7 @@ class QuadTree():
         hit_list = []
         if len(self.branches) > 0:
             for branch in self.branches:
-                if branch.get_rect(self.rect_type).collidepoint(point):
+                if branch.rect.collidepoint(point):
                     hit_list += branch.collidepoint(point)
         else:
             for particle in self.particles:

@@ -23,43 +23,13 @@ obstacles = [
     {"images": "iso_tree_big.png",
     "borders": borders(1.30, 1.30)},
     
-    {"images": "iso_door_unlocked_closed_we_1.png",
-    "borders": borders(1.00, 0.40),
-    "animation": "door"},
+    {"images": ["iso_door_unlocked_closed_we_1.png", "iso_door_unlocked_opened_we_2.png", "iso_door_unlocked_opened_we_3.png", "iso_door_unlocked_opened_we_4.png", "iso_door_unlocked_opened_we_5.png"],
+    "animation": "door",
+    "fps": 10},
     
-    {"images": "iso_door_unlocked_opened_we_2.png",
-    "borders": borders(1.00, 0.40),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_we_3.png",
-    "borders": borders(1.00, 0.40),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_we_4.png",
-    "borders": borders(1.00, 0.40),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_we_5.png",
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_closed_ns_1.png",
-    "borders": borders(0.40, 1.00),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_ns_2.png",
-    "borders": borders(0.40, 1.00),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_ns_3.png",
-    "borders": borders(0.40, 1.00),
-    "animation": "door"},
-
-    {"images": "iso_door_unlocked_opened_ns_4.png",
-    "borders": borders(0.40, 1.00),
-    "animation": "door"},
-    
-    {"images": "iso_door_unlocked_opened_ns_5.png",
-    "animation": "door"},
+    {"images": ["iso_door_unlocked_closed_ns_1.png", "iso_door_unlocked_opened_ns_2.png", "iso_door_unlocked_opened_ns_3.png", "iso_door_unlocked_opened_ns_4.png", "iso_door_unlocked_opened_ns_5.png"],
+    "animation": "door",
+    "fps": 10},
 
     {"images": ["iso_purplecloud_3.png", "iso_purplecloud_4.png", "iso_purplecloud_5.png", "iso_purplecloud_1.png", "iso_purplecloud_2.png"],
     "fps": 10},
@@ -96,13 +66,13 @@ obstacles = [
     "label": "Chest",
     "borders": borders(0.80, 0.60),
     "action": "chest",
-    "after_looting": 30},
+    "after_looting": 21},
 
     {"images": "iso_chest_grey_closed_w.png",
     "label": "Chest",
     "borders": borders(0.60, 0.80),
     "action": "chest",
-    "after_looting": 31},
+    "after_looting": 22},
 
     {"images": "iso_chest_grey_opened_n.png",
     "borders": borders(0.80, 0.60)},
@@ -439,7 +409,7 @@ obstacles = [
 
     {"images": "iso_wall_brick_ns.png",
     "borders": borders(0.80, 1.20),
-    "after_smashing": 236},
+    "after_smashing": 228},
 
     {"images": "iso_wall_brick_end_w.png",
     "borders": borders(1.00, 1.00)},
@@ -565,42 +535,10 @@ obstacles = [
     {"images": "iso_wall_yellow_curve_long_ws.png",
     "borders": borders(1.10, 1.10)},
 
-    {"images": "iso_gate_unlocked_closed_ns_1.png",
-    "borders": borders(-0.05, 0.60, -1.55, 0.55),
+    {"images": ["iso_gate_unlocked_closed_ns_1.png", "iso_gate_unlocked_opened_ns_2.png", "iso_gate_unlocked_opened_ns_3.png", "iso_gate_unlocked_opened_ns_4.png", "iso_gate_unlocked_opened_ns_5.png"],
     "animation": "door"},
 
-    {"images": "iso_gate_unlocked_opened_ns_2.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_ns_3.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_ns_4.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_ns_5.png",
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_closed_we_1.png",
-    "borders": borders(-1.55, 0.55, -0.05, 0.60),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_we_2.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_we_3.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_we_4.png",
-    "borders": borders(1.20, 1.20),
-    "animation": "door"},
-
-    {"images": "iso_gate_unlocked_opened_we_5.png",
+    {"images": ["iso_gate_unlocked_closed_we_1.png", "iso_gate_unlocked_opened_we_2.png", "iso_gate_unlocked_opened_we_3.png", "iso_gate_unlocked_opened_we_4.png", "iso_gate_unlocked_opened_we_5.png"],
     "animation": "door"},
 
     {"images": "iso_gate_locked_ns.png",
@@ -733,12 +671,12 @@ obstacles = [
 
     {"images": "iso_wall_brick_cracked_ns.png",
     "borders": borders(0.50, 1.20),
-    "after_smashing": 237,
+    "after_smashing": 221,
     "action": "barrel"},
 
     {"images": "iso_wall_brick_cracked_we.png",
     "borders": borders(1.20, 0.50),
-    "after_smashing": 238,
+    "after_smashing": 222,
     "action": "barrel"},
 
     {"images": "iso_wall_brick_smashed_ns.png"},
@@ -877,13 +815,13 @@ obstacles = [
 
     {"images": "iso_wall_glass_ns.png",
     "borders": borders(0.40, 1.10),
-    "after_smashing": 348,
+    "after_smashing": 332,
     "action": "barrel",
     "smashed_sound": "Glass_Break.ogg"},
 
     {"images": "iso_wall_glass_we.png",
     "borders": borders(1.10, 0.40),
-    "after_smashing": 446,
+    "after_smashing": 430,
     "action": "barrel",
     "smashed_sound": "Glass_Break.ogg"},
 
@@ -1088,42 +1026,10 @@ obstacles = [
     {"images": "iso_doubledoor_locked_ns.png",
     "borders": borders(-0.80, 0.20, -0.55, 1.55)},
 
-    {"images": "iso_doubledoor_unlocked_opened_we_1.png",
-    "borders": borders(-0.55, 1.55, -0.20, 0.20),
+    {"images": ["iso_doubledoor_unlocked_opened_we_1.png", "iso_doubledoor_unlocked_opened_we_2.png", "iso_doubledoor_unlocked_opened_we_3.png", "iso_doubledoor_unlocked_opened_we_4.png", "iso_doubledoor_unlocked_opened_we_5.png"],
     "animation": "door"},
 
-    {"images": "iso_doubledoor_unlocked_opened_we_2.png",
-    "borders": borders(-0.55, 1.55, -0.20, 0.20),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_we_3.png",
-    "borders": borders(-0.55, 1.55, -0.20, 0.20),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_we_4.png",
-    "borders": borders(-0.55, 1.55, -0.20, 0.20),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_we_5.png",
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_ns_1.png",
-    "borders": borders(-0.20, 0.20, -0.55, 1.55),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_ns_2.png",
-    "borders": borders(-0.20, 0.20, -0.55, 1.55),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_ns_3.png",
-    "borders": borders(-0.20, 0.20, -0.55, 1.55),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_ns_4.png",
-    "borders": borders(-0.20, 0.20, -0.55, 1.55),
-    "animation": "door"},
-
-    {"images": "iso_doubledoor_unlocked_opened_ns_5.png",
+    {"images": ["iso_doubledoor_unlocked_opened_ns_1.png", "iso_doubledoor_unlocked_opened_ns_2.png", "iso_doubledoor_unlocked_opened_ns_3.png", "iso_doubledoor_unlocked_opened_ns_4.png", "iso_doubledoor_unlocked_opened_ns_5.png"],
     "animation": "door"},
 
     {"images": "iso_basin_n.png",
@@ -1155,13 +1061,13 @@ obstacles = [
     "label": "Chest",
     "borders": borders(0.60, 0.80),
     "action": "chest",
-    "after_looting": 374},
+    "after_looting": 350},
 
     {"images": "iso_chest_greyrusty_closed_n.png",
     "label": "Chest",
     "borders": borders(0.80, 0.60),
     "action": "chest",
-    "after_looting": 375},
+    "after_looting": 351},
 
     {"images": "iso_chest_greyrusty_opened_w.png",
     "borders": borders(0.60, 0.80)},
@@ -1173,13 +1079,13 @@ obstacles = [
     "label": "Chest",
     "borders": borders(0.80, 0.60),
     "action": "chest",
-    "after_looting": 378},
+    "after_looting": 354},
 
     {"images": "iso_chest_greyrusty_closed_e.png",
     "label": "Chest",
     "borders": borders(0.60, 0.80),
     "action": "chest",
-    "after_looting": 379},
+    "after_looting": 355},
 
     {"images": "iso_chest_greyrusty_opened_s.png",
     "borders": borders(0.80, 0.60)},
@@ -1485,7 +1391,7 @@ obstacles = [
     "borders": borders(0.60, 1.10),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 467},
+    "after_looting": 443},
 
     {"images": "iso_bookshelf_looted_e.png",
     "borders": borders(0.60, 1.10)},
@@ -1494,7 +1400,7 @@ obstacles = [
     "borders": borders(1.10, 0.60),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 469},
+    "after_looting": 441},
 
     {"images": "iso_bookshelf_looted_s.png",
     "borders": borders(1.10, 0.60)},
@@ -1503,7 +1409,7 @@ obstacles = [
     "borders": borders(0.60, 1.10),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 471},
+    "after_looting": 447},
 
     {"images": "iso_bookshelf_looted_w.png",
     "borders": borders(0.60, 1.10)},
@@ -1512,7 +1418,7 @@ obstacles = [
     "borders": borders(1.10, 0.60),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 473},
+    "after_looting": 449},
 
     {"images": "iso_bookshelf_looted_n.png",
     "borders": borders(1.10, 0.60)},
@@ -1521,7 +1427,7 @@ obstacles = [
     "borders": borders(0.60, 2.20),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 475},
+    "after_looting": 451},
 
     {"images": "iso_bookshelf_long_looted_e.png",
     "borders": borders(0.60, 2.20)},
@@ -1530,7 +1436,7 @@ obstacles = [
     "borders": borders(2.20, 0.60),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 477},
+    "after_looting": 453},
 
     {"images": "iso_bookshelf_long_looted_s.png",
     "borders": borders(2.20, 0.60)},
@@ -1539,7 +1445,7 @@ obstacles = [
     "borders": borders(0.60, 2.20),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 479},
+    "after_looting": 455},
 
     {"images": "iso_bookshelf_long_looted_w.png",
     "borders": borders(0.60, 2.20)},
@@ -1548,7 +1454,7 @@ obstacles = [
     "borders": borders(2.20, 0.60),
     "action": "chest",
     "label": "Bookshelf",
-    "after_looting": 481},
+    "after_looting": 457},
 
     {"images": "iso_bookshelf_long_looted_n.png",
     "borders": borders(2.20, 0.60)},
@@ -1561,25 +1467,25 @@ obstacles = [
 
     {"images": "iso_statue_883_e.png",
     "borders": borders(1.80, 1.80),
-    "after_smashing": 488,
+    "after_smashing": 464,
     "action": "barrel",
     "label": "Statue"},
 
     {"images": "iso_statue_883_n.png",
     "borders": borders(1.80, 1.80),
-    "after_smashing": 489,
+    "after_smashing": 465,
     "action": "barrel",
     "label": "Statue"},
 
     {"images": "iso_statue_883_s.png",
     "borders": borders(1.80, 1.80),
-    "after_smashing": 490,
+    "after_smashing": 466,
     "action": "barrel",
     "label": "Statue"},
 
     {"images": "iso_statue_883_w.png",
     "borders": borders(1.80, 1.80),
-    "after_smashing": 491,
+    "after_smashing": 467,
     "action": "barrel",
     "label": "Statue"},
 

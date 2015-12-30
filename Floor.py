@@ -39,18 +39,23 @@ class AnimatedTile():
         self.frame = 0
         self.current_time = pygame.time.get_ticks()
         self.time_passed = 0
-    def switch_frame(self):
-        self.frame += 1
+    def switch_frame(self, reverse=False):
+        if reverse:
+            self.frame -= 1
+        else:
+            self.frame += 1
         if self.frame >= len(self.images):
             self.frame = 0
-    def update(self, current_time=None):
+        elif self.frame < 0:
+            self.frame = len(self.images) - 1
+    def update(self, current_time=None, reverse=False):
         if not current_time:
             current_time = pygame.time.get_ticks()
         change_in_time = current_time - self.current_time
         self.time_passed += change_in_time
         self.current_time += change_in_time
         if self.time_passed >= self.update_interval:
-            self.switch_frame()
+            self.switch_frame(reverse)
             self.time_passed = 0
     def draw(self, screen_offset):
         self.screen.blit(self.images[self.frame], (self.iso_positions[self.frame][0] + screen_offset[0], self.iso_positions[self.frame][1] + screen_offset[1]), self.regions[self.frame])

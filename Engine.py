@@ -32,10 +32,10 @@ class Engine():
         self.obstacles.load_obstaclemap(path, layer)
     def load_charactermap(self, path):
         pass
-    def update(self):
+    def update(self, event=None):
         current_time = pygame.time.get_ticks()
         self.floor.update(current_time)
-        self.obstacles.update(current_time)
+        self.obstacles.update(current_time=current_time, event=event)
     def draw(self, screen_offset):
         self.floor.draw(screen_offset)
         self.obstacles.draw(screen_offset)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     b = Engine(screen)
     b.load_tilemap("TheMap/map.floor", 0)
     b.load_obstaclemap("TheMap/map.obstacles", 0)
-    a = Montag(screen, "graphics/droids/blue_guard/atlas.txt", "graphics/droids/red_guard/config.txt", b.obstacles.grid, [3, 0])
+    a = Montag(screen, "graphics/droids/blue_guard/atlas.txt", "graphics/droids/red_guard/config.txt", b.obstacles.grid, [0, 0])
     while True:
         screen.fill((0, 0, 0))
         clock.tick(60)
@@ -61,6 +61,7 @@ if __name__ == "__main__":
                 screen = pygame.display.set_mode(screen_size, RESIZABLE)
             else:
                 a.update(None, event)
+                b.update(event)
         b.update()
         b.draw([0, 0])
         a.update()
