@@ -37,8 +37,6 @@ def heuristic(a, b, method="diagonal"):
     else:
         return None
 
-
-
 class Grid2D():
     def __init__(self, dimensions, obstacles=[], precision=4, tilesize=[64, 64]):
         self.precision = precision
@@ -49,11 +47,11 @@ class Grid2D():
         self.grid = [[1 for x in range(self.width * precision)] for y in range(self.height * precision)]
         self.quadtree = QuadTree(Rect(0, 0, tilesize[0] * self.width, tilesize[1] * self.height), 0, int(tilesize[0] * self.width / 400), 5, obstacles)
         self.obstacles = obstacles
-    def refresh(self):
+    def refresh(self, rect=None):
         self.quadtree.clear()
         self.quadtree.particles = self.obstacles
         self.quadtree.update()
-        self.calculate_clearance()
+        self.calculate_clearance(rect)
     def find_path(self, start, target, clearance=1, method="diagonal"):
         orig_target = target
         if not self.quadtree.collideline(((start[0] * WIDTH, start[1] * HEIGHT), (target[0] * WIDTH, target[1] * HEIGHT))):
@@ -104,11 +102,30 @@ class Grid2D():
                             parents[neighbor] = current
                             heappush(open_heap, (f_score[neighbor], neighbor))
         return None
-    def calculate_clearance(self):
-        for i, y in enumerate(self.grid):
-            for j, x in enumerate(y):
-                if self.quadtree.colliderect(Rect((j * self.split_tilesize[0], i * self.split_tilesize[1]), self.split_tilesize)):
-                    self.grid[i][j] = 0
+    def calculate_clearance(self, rect=None):
+        if rect:
+            startx = int(rect.x // self.split_tilesize[0])
+            starty = int(rect.y // self.split_tilesize[1])
+            #Add one because list[a:b] does not include b
+            #Use math.ceil just to make sure we don't leave anything out
+            endx = int(math.ceil((rect.x + rect.width) / self.split_tilesize[0]) + 1)
+            endy = int(math.ceil((rect.y + rect.height) / self.split_tilesize[1]) + 1)
+            #Check if endx or endy are too big in case the previous "safety precautions" brought them past the edges of the grid
+            if endx >= len(self.grid[0]):
+                endx -= 1
+            elif endy >= len(self.grid):
+                endy -= 1
+            for i, y in enumerate(self.grid[starty:endy]):
+                for j, x in enumerate(y[startx:endx]):
+                    if self.quadtree.colliderect(Rect(((j + startx) * self.split_tilesize[0], (i + starty) * self.split_tilesize[1]), self.split_tilesize)):
+                        self.grid[i + starty][j + startx] = 0
+                    else:
+                        self.grid[i + starty][j + startx] = 1
+        else:
+            for i, y in enumerate(self.grid):
+                for j, x in enumerate(y):
+                    if self.quadtree.colliderect(Rect((j * self.split_tilesize[0], i * self.split_tilesize[1]), self.split_tilesize)):
+                        self.grid[i][j] = 0
         """
         Calculating clearance makes it too slow
         for i, y in enumerate(self.grid):

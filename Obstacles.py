@@ -183,18 +183,21 @@ class Obstacles():
             self.layers[old_obs[1]].pop(old_obs[2])
             self.refresh_realrect_quadtree()
             self.grid.obstacles = [j for i in self.layers for j in i]
-            self.grid.refresh()
+            self.grid.refresh(old_obs[0].rect)
     def replace_id(self, old_id, new):
-        old_obs = self.find_id(old_id)
-        if old_obs:
+        if old_id:
+            old_obs = self.find_id(old_id)
             if type(new) == int:
-                self.layers[old_obs[1]][old_obs[2]] = self.create_obstacle({"type": new, "x": old_obs[0].grid_pos[0], "y": old_obs[0].grid_pos[1]})
+                new_obs = self.create_obstacle({"type": new, "x": old_obs[0].grid_pos[0], "y": old_obs[0].grid_pos[1]})
             else:
-                self.layers[old_obs[1]][old_obs[2]] = self.reserves[new]
-                self.layers[old_obs[1]].sort(key=lambda x: (x.grid_pos[1], x.grid_pos[1]))
+                new_obs = self.reserves[new]
+            
+            self.layers[old_obs[1]][old_obs[2]] = new_obs
+            self.layers[old_obs[1]].sort(key=lambda x: (x.grid_pos[1], x.grid_pos[1]))
             self.refresh_realrect_quadtree()
             self.grid.obstacles = [j for i in self.layers for j in i]
-            self.grid.refresh()
+            self.grid.refresh(old_obs[0].rect)
+            self.grid.refresh(new_obs.rect)
     def create_obstacle(self, info):
         if info["type"] == "RECT":
             return BasicObstacle((info["x"], info["y"]), info["width"], info["height"])
