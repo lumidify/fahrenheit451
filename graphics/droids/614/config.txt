@@ -1,0 +1,5 @@
+walk_fps=25
+attack_fps=23
+gethit_fps=18
+death_fps=18
+stand_fps=18

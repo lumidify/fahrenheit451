@@ -45,7 +45,7 @@ class Grid2D():
         self.width = dimensions[0]
         self.height = dimensions[1]
         self.grid = [[1 for x in range(self.width * precision)] for y in range(self.height * precision)]
-        self.quadtree = QuadTree(Rect(0, 0, tilesize[0] * self.width, tilesize[1] * self.height), 0, int(tilesize[0] * self.width / 400), 5, obstacles)
+        self.quadtree = QuadTree(Rect(0, 0, tilesize[0] * self.width, tilesize[1] * self.height), 0, 5, 10, obstacles)
         self.obstacles = obstacles
     def refresh(self, rect=None):
         self.quadtree.clear()

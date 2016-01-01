@@ -1,7 +1,5 @@
-max_health=100
-speed=0.25
-stand_fps=10
-walk_fps=15
-attack_fps=20
-gethit_fps=10
-death_fps=15
+walk_fps=8
+attack_fps=8
+gethit_fps=8
+death_fps=8
+stand_fps=2

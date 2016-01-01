@@ -8,20 +8,23 @@ from Character import Character
 from pygame.locals import *
 
 class AICharacter(Character):
-    def __init__(self, screen, atlas, config, **kwargs):
-        super().__init__(screen, atlas, config, **kwargs)
+    def __init__(self, screen, **kwargs):
+        super().__init__(screen, **kwargs)
         self.enemy = kwargs.get("enemy", None)
         self.movement_state = kwargs.get("movement_state", None)
         self.waypoints = kwargs.get("waypoints", None)
+        self.area = kwargs.get("random_walk_area", None)
         self.pathfinding_grid = kwargs.get("pathfinding_grid", None)
         self.dialog = kwargs.get("dialog", None)
         self.dialogmanager = kwargs.get("dialogmanager", None)
         if self.waypoints:
             self.remaining_waypoints = self.waypoints.copy()
+            self.grid_pos = self.remaining_waypoints[0].copy()
             self.walk_to_points = [self.remaining_waypoints.pop(0)]
             self.movement_state = "waypoints"
             self.state = "walk"
-        self.area = kwargs.get("area", [0, 0, 0, 0])
+        elif self.area:
+            self.movement_state = "random_walk"
         self.pause_time = kwargs.get("pause_time", 1000)
         self.pause_time_passed = 0
     def click(self):
@@ -40,14 +43,14 @@ class AICharacter(Character):
         if not self.dead:
             if not self.walk_to_points and self.pause_time_passed >= self.pause_time:
                 if self.movement_state == "random_walk":
-                    self.walk_to_points = self.pathfinding_grid.find_path(self.pos, [
+                    self.walk_to_points = self.pathfinding_grid.find_path(self.grid_pos, [
                     random.uniform(self.area[0], self.area[0] + self.area[2]),
                     random.uniform(self.area[1], self.area[1] + self.area[3])])
                     self.frame = 0
                 elif self.movement_state == "waypoints":
-                    self.walk_to_points = [self.remaining_waypoints.pop(0)]
                     if len(self.remaining_waypoints) == 0:
                         self.remaining_waypoints = self.waypoints.copy()
+                    self.walk_to_points = [self.remaining_waypoints.pop(0)]
         super().update(current_time, event)
 if __name__ == "__main__":
     pygame.init()

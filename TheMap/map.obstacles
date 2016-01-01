@@ -12,6 +12,10 @@ y=2
 id=hi
 x=12
 y=3
+*obs 172
+id=hi4
+x=13
+y=4
 *obs 20
 id=bye
 x=3
