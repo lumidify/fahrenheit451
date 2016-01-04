@@ -9,7 +9,7 @@ TILEWIDTH = 128
 TILEHEIGHT = 64
 
 class Editor():
-    def __init__(self, screen, atlas, tilemap, leftpos=0):
+    def __init__(self, screen, leftpos=0):
         self.screen = screen
         self.default_tile = pygame.image.load("grid.png").convert_alpha()
         self.offset = [300, 0]
@@ -23,32 +23,10 @@ class Editor():
         self.mouse_pos = pygame.mouse.get_pos()
         self.leftpos = leftpos
         self.engine = Engine(self.screen)
-        self.engine.load_tilemap(tilemap)
-        self.current_cursor = self.engine.layers[-1].create_tile(0, [0, 0])
-    def load(self):
-        f = open(self.atlas)
-        image = None
-        image_surf = None
-        for line in f.readlines():
-            if line.startswith("*"):
-                image = line.split()[1]
-                image_surf = pygame.image.load(os.path.join(self.path, image)).convert_alpha()
-            else:
-                line = line.split()
-                pos = [int(x) for x in line[1:3]]
-                size = [int(x) for x in line[3:5]]
-                offset = [int(x) for x in line[6:8]]
-                self.tiles.append({"offset": offset, "pos": pos, "size": size, "image": image_surf})
-        f.close()
+    def open(self, level):
+        self.engine.load_map(level)
     def change_cursor_image(self, number):
         self.current_cursor = self.engine.layers[0].create_tile(number, [0, 0])
-    def load_tilemap(self, tilemap):
-        self.tilemap = []
-        self.tilemap_path = tilemap
-        f = open(tilemap)
-        for line in f.readlines():
-            self.tilemap.append([int(x) for x in line.split()])
-        f.close()
     def change_size(self, width, height):
         for line in self.tilemap:
             if len(line) > width:

@@ -1,6 +1,7 @@
 import os
 import sys
 import pygame
+import importlib
 from pygame.locals import *
 
 TILEWIDTH = 128
@@ -66,14 +67,16 @@ class Floor():
         self.layers = [[]]
     def add_layer(self):
         self.layers.append([])
-    def load_tilemap(self, tilemap_path, layer):
-        tilemap = []
-        with open(tilemap_path) as f:
-            for index, line in enumerate(f.readlines()):
-                tilemap.append([])
-                for index2, x in enumerate([int(x) for x in line.split()]):
-                    tilemap[index].append(self.create_tile(x, (index2, index)))
-        self.layers[layer] = tilemap
+    def load_tilemap(self, tilemap_path):
+        
+        self.layers = []
+        temp = importlib.import_module(tilemap_path.replace(os.sep, "."))
+        for layer in temp.layers:
+            self.layers.append([])
+            for y, line in enumerate(layer.strip().splitlines()):
+                self.layers[-1].append([])
+                for x, tile in enumerate([int(char) for char in line.split()]):
+                    self.layers[-1][-1].append(self.create_tile(tile, (x, y)))
     def replace_tile(self, tile_id, tile_pos, layer):
         self.layers[layer][tile_pos[1]][tile_pos[0]] = self.create_tile(tile_id, tile_pos)
     def create_tile(self, tile_id, grid_pos):

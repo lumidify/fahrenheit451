@@ -3,10 +3,9 @@ import sys
 import math
 import pygame
 from CONSTANTS import *
-from heapq import heappush, heappop
 from pygame.locals import *
 from QuadTree import QuadTree
-
+from heapq import heappush, heappop
 
 def compute_g_score(a, b):
     delta = (abs(a[0] - b[0]), abs(a[1] - b[1]))
@@ -87,7 +86,7 @@ class Grid2D():
                 for neighbor in get_neighbors(current, self.width * self.precision - 1, self.height * self.precision - 1):
                     if self.grid[neighbor[1]][neighbor[0]] < clearance or neighbor in closed_list:
                         continue
-                    elif neighbor not in [x[1] for x in open_heap]:
+                    elif neighbor not in set([x[1] for x in open_heap]):
                         g_score[neighbor] = g_score[current] + compute_g_score(current, neighbor)
                         h_score[neighbor] = heuristic(neighbor, target, method)
                         f_score[neighbor] = g_score[neighbor] + h_score[neighbor]
@@ -145,6 +144,3 @@ class Grid2D():
                     if x == None or x > clearance:
                         self.grid[i][j] = clearance
         """
-    def draw(self, screen_offset):
-        for obstacle in self.obstacles:
-            obstacle.draw()

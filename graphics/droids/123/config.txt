@@ -1,4 +1,4 @@
-walk_fps=5
+walk_fps=10
 attack_fps=8
 gethit_fps=8
 death_fps=8

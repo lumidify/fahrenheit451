@@ -1,26 +1,143 @@
 import os
 import sys
 import pygame
+import importlib
 from Grid2D import *
 from Floor import *
 from CONSTANTS import *
 from pygame.locals import *
 from AICharacter import AICharacter
 FONT = pygame.font.Font("Lumidify_Casual.ttf", 20)
-#Sorting: bob.sort(key=lambda x: x.pos[1], x.pos[0])
-#Note: [j for i in x for j in i] is just a piece of ugliness which joins the lists in another list into one list.
 
+#Sorting: bob.sort(key=lambda x: x.pos[1], x.pos[0])
+#[j for i in self.layers for j in i] is just a piece of ugliness to join lists of lists into one list
+class Bullet():
+    def __init__(self, screen, **kwargs):
+        self.screen = screen
+        self.images = kwargs.get("images", [])
+        self.side = kwargs.get("side", "enemy")
+        self.phases_per_second = kwargs.get("phases_per_second", 6)
+        self.obstaclemap = kwargs.get("obstaclemap", None)
+        self.speed = kwargs.get("speed", 0)
+        self.frame_interval = 1000 / self.phases_per_second / self.phases_per_second
+        self.adjusted_speed = self.speed / self.phases_per_second
+        self.lifetime = kwargs.get("lifetime", 0) * 1000
+        self.current_time = kwargs.get("current_time", pygame.time.get_ticks())
+        self.frame_time_passed = 0
+        self.lifetime_passed = 0
+        self.direction = kwargs.get("direction", "N")
+        self.angle = kwargs.get("angle", 0)
+        self.vel = [math.cos(self.angle) * self.adjusted_speed, -math.sin(self.angle) * self.adjusted_speed]
+        self.grid_pos = kwargs.get("grid_pos", [0, 0])
+        self.damage = kwargs.get("damage", 0)
+        self.frame = 0
+    def update(self, **kwargs):
+        current_time = kwargs.get("current_time", pygame.time.get_ticks())
+        time_change = current_time - self.current_time
+        self.lifetime_passed += time_change
+        if self.lifetime_passed > self.lifetime and self.lifetime >= 0:
+            self.obstaclemap.delete_bullet(self)
+        collide = self.obstaclemap.collidecharacter(self.grid_pos, self.side)
+        collide2 = self.obstaclemap.grid.quadtree.collidepoint([self.grid_pos[0] * WIDTH, self.grid_pos[1] * HEIGHT])
+        if collide2:
+            self.obstaclemap.delete_bullet(self)
+        if collide:
+            for character in collide:
+                character.hit(self.damage)
+            self.obstaclemap.delete_bullet(self)
+        self.frame_time_passed += time_change
+        if self.frame_time_passed >= self.frame_interval:
+            magnitude = self.frame_time_passed / self.frame_interval
+            self.frame_time_passed = 0
+            self.grid_pos[0] += self.vel[0] * magnitude
+            self.grid_pos[1] += self.vel[1] * magnitude
+            self.frame += 1
+            if self.frame >= len(self.images[self.direction]):
+                self.frame = 0
+        self.current_time = current_time
+    def draw(self, screen_offset):
+        isox = ((self.grid_pos[0] - 0.2) - (self.grid_pos[1] - 0.2)) * (ISOWIDTH // 2) + (self.images[self.direction][self.frame]["offset"][0] + TILEWIDTH // 2 + screen_offset[0])
+        isoy = ((self.grid_pos[0] - 0.2) + (self.grid_pos[1] - 0.2)) * (ISOHEIGHT // 2) + (self.images[self.direction][self.frame]["offset"][1] + screen_offset[1])
+        self.screen.blit(self.images[self.direction][self.frame]["image"], (isox, isoy))
+def call_trigger(trigger, obstaclemap, identifier, obstacle):
+    if trigger[0] == "REPLACE":
+        if trigger[1] == "obstacle":
+            original = obstacle if trigger[2] == "self" else trigger[2]
+            try:
+                replacement = int(trigger[3])
+            except:
+                replacement = trigger[3]
+            obstaclemap.replace_obs(obstacle=original, identifier=identifier, new=replacement)
+    elif trigger[0] == "DELETE":
+        to_delete = obstacle if trigger[2] == "self" else None
+        if trigger[1] == "obstacle":
+            obstaclemap.delete_obs(obstacle=to_delete, identifier=identifier)
+        elif trigger[1] == "character":
+            obstaclemap.delete_character(character=to_delete, identifier=identifier)
+        elif trigger[1] == "trigger":
+            obstaclemap.delete_trigger(trigger=to_delete, identifier=identifier)
+    elif trigger[0] == "ADD":
+        if trigger[1] == "obstacle":
+            obstaclemap.add_obstacle(info=trigger[2])
+        elif trigger[1] == "item":
+            obstaclemap.add_item(info=trigger[2])
+    elif trigger[0] == "KILLALL":
+        obstaclemap.killall()
+    elif trigger[0] == "SPAWN":
+        if trigger[1] == "character":
+            if type(trigger[2]) == dict:
+                obstaclemap.spawn_character(info=trigger[2])
+            else:
+                obstaclemap.spawn_character(name=trigger[2], x=trigger[3], y=trigger[4])
+    elif trigger[0] == "OPEN":
+        if trigger[1] == "door":
+            obstaclemap.open_door(trigger[2])
+    elif trigger[0] == "CLOSE":
+        if trigger[1] == "door":
+            obstaclemap.close_door(trigger[2])
+    elif trigger[0] == "DEACTIVATE":
+        if trigger[1] == "trigger":
+            obstaclemap.deactivate_trigger(identifier)
+    elif trigger[0] == "DEACTIVATE":
+        if trigger[1] == "trigger":
+            obstaclemap.activate_trigger(identifier)
+    elif trigger[0] == "CHANGEMAP":
+        if len(trigger) > 2:
+            obstaclemap.changemap(trigger[1], trigger[2])
+        else:
+            obstaclemap.changemap(trigger[1])
 def calculate_rect(grid_pos, borders):
     return Rect((
     grid_pos[0] + borders[0]) * WIDTH,
     (grid_pos[1] + borders[2]) * HEIGHT,
     (abs(borders[0]) + abs(borders[1])) * WIDTH,
     (abs(borders[2]) + abs(borders[3])) * HEIGHT)
+class Trigger():
+    def __init__(self, **kwargs):
+        self.obstaclemap = kwargs.get("obstaclemap", None)
+        self.identifier = kwargs.get("id", None)
+        self.x = kwargs.get("x", 0)
+        self.y = kwargs.get("y", 0)
+        self.width = kwargs.get("width", 0)
+        self.height = kwargs.get("height", 0)
+        self.onwalk = kwargs.get("trigger", None)
+        self.deactivate_after_use = kwargs.get("deactivate_after_use", False)
+        self.active = kwargs.get("active", True)
+        self.rect = Rect(self.x * WIDTH, self.y * HEIGHT, self.width * WIDTH, self.height * HEIGHT)
+    def get_rect(self, rect_type):
+        if rect_type == "rect":
+            return self.rect
+    def trigger(self):
+        if self.active and self.onwalk:
+            call_trigger(self.onwalk, self.obstaclemap, self.identifier, self)
+            if self.deactivate_after_use:
+                self.active = False
 class BasicObstacle():
-    def __init__(self, grid_pos, width, height):
+    def __init__(self, grid_pos, width, height, **kwargs):
         self.grid_pos = grid_pos
         self.rect = Rect(grid_pos[0] * WIDTH, grid_pos[1] * HEIGHT, width * WIDTH, height * HEIGHT)
         self.realrect = Rect(0, 0, 0, 0)
+        self.identifier = kwargs.get("id", None)
         self.selectable = False
     def update(self, *args):
         pass
@@ -42,32 +159,27 @@ class Obstacle(Tile):
         self.identifier = kwargs.get("id", None)
         self.onclick = kwargs.get("onclick", None)
         self.dialog = kwargs.get("dialog", None)
-        self.animation = kwargs.get("animation", "default")
         self.action = kwargs.get("action", None)
         self.after_looting = kwargs.get("after_looting", None)
         self.label = kwargs.get("label", None)
+        self.items = kwargs.get("items", [])
         self.selected = False
         self.selectable = False
         if self.action or self.dialog or self.onclick or self.label:
             self.selectable = True
     def click(self):
         if self.onclick:
-            if self.onclick[0] == "REPLACE":
-                original = self.identifier if self.onclick[1] == "self" else self.onclick[1]
-                try:
-                    replacement = int(self.onclick[2])
-                except:
-                    replacement = self.onclick[2]
-                self.obstaclemap.replace_id(original, replacement)
-            elif self.onclick[0] == "DELETE":
-                to_delete = self.identifier if self.onclick[1] == "self" else self.onclick[1]
-                self.obstaclemap.delete_id(to_delete)
+            call_trigger(self.onclick, self.obstaclemap, self.identifier, self)
         if self.dialog:
             self.dialogmanager.start_dialog(self.dialog)
         if self.action == "chest":
-            self.obstaclemap.replace_id(self.identifier, self.after_looting)
+            for item in self.items:
+                self.obstaclemap.add_item({"x": self.grid_pos[0] + 0.5, "y": self.grid_pos[1], "id": item})
+            self.obstaclemap.replace_obs(obstacle=self, new=self.after_looting)
         if self.action == "barrel":
-            self.obstaclemap.delete_id(self.identifier)
+            for item in self.items:
+                self.obstaclemap.add_item({"x": self.grid_pos[0], "y": self.grid_pos[1], "id": item})
+            self.obstaclemap.delete_obs(obstacle=self)
     def select(self):
         self.selected = True
     def deselect(self):
@@ -77,9 +189,9 @@ class Obstacle(Tile):
             return self.rect
         else:
             return self.realrect
-    def draw_label(self):
+    def draw_label(self, screen_offset):
         if self.label:
-            self.screen.blit(FONT.render(self.label, True, (255, 255, 255), (0, 0, 0)), self.realrect)
+            self.screen.blit(FONT.render(self.label, True, (255, 255, 255), (0, 0, 0)), (self.realrect.x + screen_offset[0], self.realrect.y + screen_offset[1]))
     def draw(self, screen_offset):
         if self.selected:
             temp_surf = pygame.surface.Surface(self.region[1]).convert_alpha()
@@ -99,7 +211,6 @@ class AnimatedObstacle(AnimatedTile):
         self.identifier = kwargs.get("id", None)
         self.onclick = kwargs.get("onclick", None)
         self.dialog = kwargs.get("dialog", None)
-        self.animation = kwargs.get("animation", "default")
         self.action = kwargs.get("action", None)
         self.after_looting = kwargs.get("after_looting", None)
         self.label = kwargs.get("label", None)
@@ -113,30 +224,25 @@ class AnimatedObstacle(AnimatedTile):
         self.selected = False
     def click(self):
         if self.onclick:
-            if self.onclick[0] == "REPLACE":
-                original = self.identifier if self.onclick[1] == "self" else self.onclick[1]
-                try:
-                    replacement = int(self.onclick[2])
-                except:
-                    replacement = self.onclick[2]
-                self.obstaclemap.replace_id(original, replacement)
-            elif self.onclick[0] == "DELETE":
-                to_delete = self.identifier if self.onclick[1] == "self" else self.onclick[1]
-                self.obstaclemap.delete_id(to_delete)
+            call_trigger(self.onclick, self.obstaclemap, self.identifier, self)
         if self.dialog:
             self.dialogmap.start_dialog(self.dialog)
         if self.action == "chest":
-            self.obstaclemap.replace_id(self.identifier, self.after_looting)
+            for item in self.items:
+                self.obstaclemap.add_item({"x": self.grid_pos[0] + 0.5, "y": self.grid_pos[1], "id": item})
+            self.obstaclemap.replace_obs(obstacle=self, new=self.after_looting)
         if self.action == "barrel":
-            self.obstaclemap.delete_id(self.identifier)
+            for item in self.items:
+                self.obstaclemap.add_item({"x": self.grid_pos[0], "y": self.grid_pos[1], "id": item})
+            self.obstaclemap.delete_obs(obstacle=self)
     def get_rect(self, rect_type):
         if rect_type == "rect":
             return self.rect
         else:
             return self.realrect
-    def draw_label(self):
+    def draw_label(self, screen_offset):
         if self.label:
-            self.screen.blit(FONT.render(self.label, True, (255, 255, 255), (0, 0, 0)), self.realrect)
+            self.screen.blit(FONT.render(self.label, True, (255, 255, 255), (0, 0, 0)), (self.realrect.x + screen_offset[0], self.realrect.y + screen_offset[1]))
     def draw(self, screen_offset):
         if self.selected:
             temp_surf = pygame.surface.Surface(self.regions[self.frame][1]).convert_alpha()
@@ -167,46 +273,197 @@ class Door(AnimatedObstacle):
                 super().update(current_time, True)
             else:
                 self.closing = False
-class Obstacles():
-    def __init__(self, screen, obstacles, mapsize, characters):
+class Item():
+    def __init__(self, screen, **kwargs):
         self.screen = screen
+        self.image = kwargs.get("ingame", None)
+        self.offset = kwargs.get("offset", None)
+        self.grid_pos = [kwargs.get("x", 0), kwargs.get("y", 0)]
+        self.item_info = kwargs["item_info"]
+        self.label = kwargs.get("name")
+        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (self.offset[0] + TILEWIDTH // 2)
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
+        self.realrect = Rect((self.isox, self.isoy), self.image.get_size())
+        self.selected = False
+        self.selectable = True
+    def select(self):
+        self.selected = True
+    def deselect(self):
+        self.selected = False
+    def get_rect(self, rect_type):
+        if rect_type == "realrect":
+            return self.realrect
+    def draw_label(self, screen_offset):
+        if self.label:
+            self.screen.blit(FONT.render(self.label, True, (255, 255, 255), (0, 0, 0)), (self.realrect.x + screen_offset[0], self.realrect.y + screen_offset[1]))
+    def draw(self, screen_offset):
+        if self.selected:
+            temp_surf = pygame.surface.Surface(self.realrect.size).convert_alpha()
+            temp_surf.fill((100, 100, 100, 0))
+            temp_surf.blit(self.image, (0, 0), [(0, 0), self.realrect.size], BLEND_RGBA_ADD)
+            self.screen.blit(temp_surf, (self.isox + screen_offset[0], self.isoy + screen_offset[1]))
+        else:
+            self.screen.blit(self.image, (self.isox + screen_offset[0], self.isoy + screen_offset[1]))
+class Obstacles():
+    def __init__(self, screen, obstacles, mapsize, characters, items, bullets, engine):
+        self.screen = screen
+        self.engine = engine
         self.obstacles = obstacles
         self.characters = characters
+        self.items = items
+        self.bullet_archetypes = bullets
         self.mapsize = mapsize
         self.grid = Grid2D(mapsize)
         self.realrect_quadtree = QuadTree(Rect(0, 0, mapsize[0] * ISOWIDTH, mapsize[1] * ISOHEIGHT), 0, 5, 10, [], "realrect")
-        self.layers = [[]]
+        self.trigger_quadtree = QuadTree(Rect(0, 0, mapsize[0] * WIDTH, mapsize[1] * TILEHEIGHT), 0, 5, 10, [], "rect")
+        self.layers = []
         self.charactermap = []
+        self.triggers = []
         self.reserves = {}
         self.selected = None
+        self.player = None
+        self.screen_offset = [0, 0]
+        self.bullets = []
+        self.dead_characters = []
+        self.item_map = []
+    def changemap(self, new_map, spawn_pos=None):
+        self.engine.load_map(new_map, spawn_pos=spawn_pos)
+    def add_bullet(self, info):
+        temp = self.bullet_archetypes[info["name"]].copy()
+        temp.update(info)
+        self.bullets.append(Bullet(self.screen, obstaclemap=self, **temp))
+    def delete_bullet(self, bullet):
+        try:
+            self.bullets.remove(bullet)
+        except:
+            pass
+    def collidecharacter(self, point, side):
+        hit_list = []
+        for character in self.charactermap + [self.player]:
+            if character.side != side and character.state != "death" and not character.dead:
+                if math.sqrt((point[0] - character.grid_pos[0]) ** 2 + (point[1] - character.grid_pos[1]) ** 2) < 0.5:
+                    hit_list.append(character)
+        return hit_list
+    def killall(self):
+        for character in self.charactermap:
+            character.die()
+    def open_door(self, door):
+        try:
+            self.find_obs_id(door).open()
+        except:
+            print("Couldn't open door with id '%s'." %door)
+    def close_door(self, door):
+        try:
+            self.find_obs_id(door).close()
+        except:
+            print("Couldn't close door with id '%s'" %door)
+    def delete_item(self, item):
+        try:
+            self.item_map.remove(item)
+        except:
+            print("Couldn't remove item '%s'." %item)
+    def add_item(self, item):
+        self.item_map.append(self.create_item(item))
+    def create_item(self, info):
+        item_info = self.items[info["id"]].copy()
+        temp = item_info.copy()
+        temp.update(info)
+        temp.update({"item_info": item_info.copy()})
+        return Item(self.screen, **temp)
     def find_obs_id(self, identifier):
         for layer_index, layer in enumerate(self.layers):
             for obs_index, obstacle in enumerate(layer):
                 if obstacle.identifier == identifier:
                     return obstacle, layer_index, obs_index
         return None
+    def find_char_id(self, identifier):
+        for index, character in enumerate(self.charactermap):
+            if character.identifier == identifier:
+                return character, index
+    def find_trigger_id(self, identifier):
+        for index, trigger in enumerate(self.triggers):
+            if trigger.identifier == identifier:
+                return trigger, index
     def refresh_realrect_quadtree(self):
         self.realrect_quadtree.clear()
-        self.realrect_quadtree.particles = [j for i in self.layers for j in i] + self.charactermap
+        self.realrect_quadtree.particles = [j for i in self.layers for j in i] + self.charactermap + self.item_map
         self.realrect_quadtree.update()
-    def delete_id(self, old_id):
-        old_obs = self.find_obs_id(old_id)
-        if old_obs:
-            self.layers[old_obs[1]].pop(old_obs[2])
-            self.grid.obstacles = [j for i in self.layers for j in i]
-            self.grid.refresh(old_obs[0].rect)
-    def replace_id(self, old_id, new):
-        if old_id:
-            old_obs = self.find_obs_id(old_id)
-            if type(new) == int:
-                new_obs = self.create_obstacle({"type": new, "x": old_obs[0].grid_pos[0], "y": old_obs[0].grid_pos[1]})
+    def refresh_trigger_quadtree(self):
+        self.trigger_quadtree.clear()
+        self.trigger_quadtree.particles = self.triggers
+        self.trigger_quadtree.update()
+    def refresh_grid(self):
+        self.grid.obstacles = [j for i in self.layers for j in i]
+        self.grid.refresh()
+    def delete_obs(self, **kwargs):
+        obs = kwargs.get("obstacle", None)
+        identifier = kwargs.get("identifier", None)
+        refresh_rect = Rect(0, 0, 0, 0)
+        if obs:
+            refresh_rect = obs.rect
+            for index, layer in enumerate(self.layers):
+                try:
+                    layer.remove(obs)
+                    break
+                except:
+                    continue
             else:
-                new_obs = self.reserves[new]
-            
-            self.layers[old_obs[1]][old_obs[2]] = new_obs
+                print("WARNING: Couldn't delete obstacle '%s'." %obs)
+        else:
+            obs = self.find_obs_id(obs)
+            if obs:
+                refresh_rect = obs.rect
+                self.layers[obs[1]].remove(obs[2])
+            else:
+                print("WARNING: Couldn't delete obstacle '%s'." %obs)
+        self.grid.obstacles = [j for i in self.layers for j in i]
+        self.grid.refresh(refresh_rect)
+    def replace_obs(self, **kwargs):
+        orig_obs = kwargs.get("obstacle", None)
+        new = kwargs.get("new", None)
+        identifier = kwargs.get("identifier", None)
+        if type(orig_obs) != str:
+            for index, layer in enumerate(self.layers):
+                try:
+                    obs = orig_obs, index, layer.index(orig_obs)
+                    break
+                except:
+                    continue
+            else:
+                print("WARNING: couldn't find obstacle '%s'." %orig_obs)
+        else:
+            obs = self.find_obs_id(orig_obs)
+        try:
+            if type(new) == int:
+                new_obs = self.create_obstacle({"type": new, "x": obs[0].grid_pos[0], "y": obs[0].grid_pos[1]})
+            else:
+                new_obs = self.create_obstacle(new)
+            self.layers[obs[1]][obs[2]] = new_obs
             self.grid.obstacles = [j for i in self.layers for j in i]
-            self.grid.refresh(old_obs[0].rect)
+            self.grid.refresh(obs[0].rect)
             self.grid.calculate_clearance(new_obs.rect)
+        except:
+            print("WARNING: Couldn't replace obstacle '%s'." %orig_obs)
+    def delete_trigger(self, identifier):
+        for trigger in list(self.triggers):
+            if trigger.identifier == identifier:
+                self.triggers.remove(trigger)
+                break
+    def deactivate_trigger(self, identifier):
+        for trigger in self.triggers:
+            if trigger.identifier == identifier:
+                trigger.active = False
+                break
+    def activate_trigger(self, identifier):
+        for trigger in self.triggers:
+            if trigger.identifier == identifier:
+                trigger.active = True
+                break
+    def delete_character(self, identifier):
+        for character in list(self.characters):
+            if character.identifier == identifier:
+                self.characters.remove(character)
+                break
     def create_obstacle(self, info):
         if info["type"] == "RECT":
             return BasicObstacle((info["x"], info["y"]), info["width"], info["height"])
@@ -221,110 +478,109 @@ class Obstacles():
                     return Door(self.screen, tile_dict, (info["x"], info["y"]), obstaclemap=self)
                 else:
                     return AnimatedObstacle(self.screen, tile_dict, (info["x"], info["y"]), obstaclemap=self, **complete_info)
-    def add_layer(self):
-        if len(self.layers) < 2:
+    def spawn_character(self, **kwargs):
+        if kwargs.get("info", None):
+            self.charactermap.append(self.create_character(kwargs["info"]))
+        else:
+            self.charactermap.append(AICharacter(self.screen, x=kwargs.get("x", 0), y=kwargs.get("y", 0), **self.characters[kwargs["name"]]))
+    def load_obstaclemap(self, path):
+        self.layers = []
+        temp = importlib.import_module(path.replace(os.sep, "."))
+        for layer in temp.layers:
             self.layers.append([])
-    def load_obstaclemap(self, path, layer):
-        self.layers[layer] = []
-        with open(path) as f:
-            maplines = f.readlines()
-        state = ""
-        obs = {}
-        for line in maplines:
-            if line != "\n" and not line.startswith("#"):
-                if line.startswith("***reserve obs***"):
-                    state = "reserve"
-                elif line.startswith("***current obs***"):
-                    state = "current"
-                elif line.startswith("*obs"):
-                    if len(obs) > 0:
-                        if state == "reserve":
-                            self.reserves[obs["id"]] = self.create_obstacle(obs)
-                        elif state == "current":
-                            self.layers[layer].append(self.create_obstacle(obs))
-                    obs = {"type": line.split()[1]}
-                else:
-                    line_split = line.split("=")
-                    value = line_split[1].strip()
-                    if line_split[0] in ["x", "y", "height", "width"]:
-                        value = float(value)
-                    obs[line_split[0]] = value
-        if len(obs) > 0:
-            if state == "reserve":
-                self.reserves[obs["id"]] = self.create_obstacle(obs)
-            elif state == "current":
-                self.layers[layer].append(self.create_obstacle(obs))
-        self.layers[layer].sort(key=lambda x: (x.grid_pos[1], x.grid_pos[0]))
-        self.grid.obstacles = [j for i in self.layers for j in i]
-        self.grid.refresh()
-        self.refresh_realrect_quadtree()
+            for obs in layer:
+                self.layers[-1].append(self.create_obstacle(obs))
+        self.layers[0].sort(key=lambda x: (x.grid_pos[1], x.grid_pos[0]))
+        self.refresh_grid()
+        self.refresh_realrect_quadtree
     def load_charactermap(self, path):
         self.charactermap = []
-        with open(path) as f:
-            lines = f.readlines()
-            current = {}
-            for line in lines:
-                line_split = line.split("=")
-                if line.startswith("#"):
-                    pass
-                elif line.startswith("*character"):
-                    if len(current) > 0:
-                        self.charactermap.append(self.create_character(current))
-                        current = {}
-                    current["name"] = line.split()[1].strip()
-                else:
-                    value = line_split[1].strip()
-                    if value == "None":
-                        value = None
-                    elif line_split[0] == "items_dropped":
-                        value = [x.strip() for x in value.split(",")]
-                    elif line_split[0] == "waypoints":
-                        value = [[float(y) for y in x.split()] for x in value.split(",")]
-                    elif line_split[0] == "random_walk_area":
-                        value = [float(x) for x in value.split()]
-                    elif line_split[0] == "health":
-                        value = int(value)
-                    elif line_split[0] in ["x", "y"]:
-                        value = float(value)
-                    current[line_split[0]] = value
-            self.charactermap.append(self.create_character(current))
+        temp = importlib.import_module(path.replace(os.sep, "."))
+        for character in temp.characters:
+            self.charactermap.append(self.create_character(character))
+    def load_triggermap(self, path):
+        self.triggers = []
+        temp = importlib.import_module(path.replace(os.sep, "."))
+        for trigger in temp.triggers:
+            self.triggers.append(Trigger(obstaclemap=self, **trigger))
+        self.refresh_trigger_quadtree()
+    def load_item_map(self, path):
+        self.item_map = []
+        temp = importlib.import_module(path.replace(os.sep, "."))
+        for item in temp.items:
+            self.item_map.append(self.create_item(item))
+        self.refresh_realrect_quadtree()
     def create_character(self, info):
         temp = self.characters[info["name"]].copy()
         temp.update(info)
-        return AICharacter(self.screen, pathfinding_grid=self.grid, **temp)
+        try:
+            temp["weapon"] = self.items[temp["weapon"]]
+        except:
+            temp["weapon"] = None
+        return AICharacter(self.screen, obstaclemap=self, **temp)
     def update(self, **kwargs):
         current_time = kwargs.get("current_time", pygame.time.get_ticks())
-        screen_offset = kwargs.get("screen_offset", [0, 0])
         event = kwargs.get("event", None)
         mouse_pos = kwargs.get("mouse_pos", pygame.mouse.get_pos())
-        mouse_pos = [mouse_pos[0] + screen_offset[0], mouse_pos[1] + screen_offset[1]]
+        mouse_pos = [mouse_pos[0] - self.screen_offset[0], mouse_pos[1] - self.screen_offset[1]]
+        for trigger in self.trigger_quadtree.collidepoint([self.player.grid_pos[0] * WIDTH, self.player.grid_pos[1] * HEIGHT]):
+            trigger.trigger()
         for layer in self.layers:
             for obstacle in layer:
                 obstacle.update(current_time)
-        for character in self.charactermap:
+        for character in list(self.charactermap):
             character.update(current_time)
+            if character.dead:
+                self.dead_characters.append(character)
+                self.charactermap.remove(character)
+            elif not self.player.dead and self.player.state != "death" and math.sqrt((self.player.grid_pos[0] - character.grid_pos[0]) ** 2 + (self.player.grid_pos[1] - character.grid_pos[1]) ** 2) <= character.aggression_distance:
+                character.turn_to(self.player)
+                character.attack(self.player)
+            else:
+                character.movement_temporarily_suppressed = False
         selected = [x for x in self.realrect_quadtree.collidepoint(mouse_pos) if x.selectable]
-        for thing in [j for i in self.layers for j in i] + self.charactermap:
+        for thing in [j for i in self.layers for j in i] + self.charactermap + self.item_map:
             thing.deselect()
         if selected:
-            self.selected = max(selected, key=lambda x: (x.grid_pos[1], x.grid_pos[0]))
+            self.selected = max(selected, key=lambda x: (x.grid_pos[0], x.grid_pos[1]))
             self.selected.select()
             if event and event.type == MOUSEBUTTONDOWN and event.button == 1:
-                self.selected.click()
+                if type(self.selected) == Item:
+                    self.player.click_item(self.selected)
+                elif type(self.selected) == AICharacter:
+                    self.player.turn_to(self.selected)
+                    self.player.attack(self.selected)
+                else:
+                    self.selected.click()
         else:
             self.selected = None
-        if event and event.type == KEYDOWN and event.key == K_SPACE:
-            for obstacle in self.layers[0]:
-                if type(obstacle) == Door:
-                    obstacle.open()
-        if event and event.type == KEYDOWN and event.key == K_RETURN:
-            for obstacle in self.layers[0]:
-                if type(obstacle) == Door:
+        for obstacle in [j for i in self.layers for j in i]:
+            if type(obstacle) == Door:
+                for character in self.charactermap + [self.player]:
+                    if math.sqrt((obstacle.grid_pos[0] - character.grid_pos[0]) ** 2 + (obstacle.grid_pos[1] - character.grid_pos[1]) ** 2) < 2:
+                        obstacle.open()
+                        break
+                else:
                     obstacle.close()
+        self.player.update(current_time=current_time, event=event, mouse_pos=mouse_pos)
+        for bullet in list(self.bullets):
+            bullet.update()
+            if bullet.grid_pos[0] < 0 or bullet.grid_pos[0] > self.mapsize[0] or bullet.grid_pos[1] < 0 or bullet.grid_pos[1] > self.mapsize[1]:
+                self.delete_bullet(bullet)
         self.refresh_realrect_quadtree()
-    def draw(self, screen_offset=[0, 0]):
-        final = sorted(self.layers[0] + self.charactermap, key=lambda x: (x.grid_pos[1], x.grid_pos[0]))
+    def draw(self, screen_offset):
+        self.screen_offset = screen_offset
+        if not self.player.dead:
+            final_unsorted = self.layers[1] + self.charactermap + [self.player] + self.bullets
+            ground_unsorted = self.layers[0] + self.dead_characters + self.item_map
+        else:
+            final_unsorted = self.layers[1] + self.charactermap + self.bullets
+            ground_unsorted = self.layers[0] + self.dead_characters + [self.player] + self.item_map
+        final = sorted(final_unsorted, key=lambda x: (x.grid_pos[0], x.grid_pos[1]))
+        ground = sorted(ground_unsorted, key=lambda x: (x.grid_pos[0], x.grid_pos[1]))
+        for ground_obs in ground:
+            ground_obs.draw(screen_offset)
         for thing in final:
             thing.draw(screen_offset)
         if self.selected:
-            self.selected.draw_label()
+            self.selected.draw_label(screen_offset)

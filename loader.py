@@ -1,10 +1,59 @@
 import os
 import pygame
+import importlib
 pygame.init()
 screen = pygame.display.set_mode((0, 0))
 from graphics.obstacles.obstacles import *
 from graphics.floor_tiles.floor_tiles import *
 DROIDPATH = os.path.join("graphics", "droids")
+ITEMPATH = os.path.join("graphics", "items")
+DIRECTIONS = {0: "SE", 1: "E", 2: "NE", 3: "N", 4: "NW", 5: "W", 6: "SW", 7: "S"}
+BULLET_DIRECTIONS = {0: "NW", 2: "W", 4: "SW", 6: "S", 8: "SE", 10: "E", 12: "NE", 14: "N"}
+
+def load_items():
+    temp = importlib.import_module("graphics.item_specs")
+    final = {}
+    for item in temp.items:
+        raw = item["rotation_series"].split("/")
+        path = os.path.join(*raw)
+        try:
+            item["ingame"] = pygame.image.load(os.path.join(ITEMPATH, path, "ingame.png")).convert_alpha()
+        except:
+            item["ingame"] = None
+        item["offset"] = [0, 0]
+        try:
+            with open(os.path.join(ITEMPATH, path, "ingame.offset")) as f:
+                for line in f.readlines():
+                    if line.startswith("OffsetX"):
+                        item["offset"][0] = int(line.split("=")[1].strip())
+                    elif line.startswith("OffsetY"):
+                        item["offset"][1] = int(line.split("=")[1].strip())
+        except:
+            pass
+        final[item["id"]] = item
+    return final
+def load_bullets():
+    temp = importlib.import_module("graphics.bullet_specs")
+    bullets = {}
+    for bullet in temp.bullet_list:
+        bullet["images"] = {"SE": [], "E": [], "NE": [], "N": [], "NW": [], "W": [], "SW": [], "S": []}
+        for frame in range(bullet.get("phases", 1)):
+            for rotation in BULLET_DIRECTIONS.keys():
+                image = {}
+                string = "iso_bullet" + "_" + bullet["name"] + "_" + str(rotation).zfill(2) + "_" + str(frame + 1).zfill(4)
+                image["image"] = pygame.image.load(os.path.join("graphics", "bullets", string + ".png"))
+                image["offset"] = [0, 0]
+                with open(os.path.join("graphics", "bullets", string + ".offset")) as f:
+                    for line in f.readlines():
+                        if line.startswith("OffsetX"):
+                            image["offset"][0] = int(line.split("=")[1].strip())
+                        elif line.startswith("OffsetY"):
+                            image["offset"][1] = int(line.split("=")[1].strip())
+                bullet["images"][BULLET_DIRECTIONS[rotation]].append(image)
+        bullets[bullet["name"]] = bullet
+    return bullets
+def load_blasts():
+    pass
 def load_images():
     images = {}
     with open(os.path.join("graphics", "floor_tiles", "atlas.txt")) as atlas:
@@ -40,7 +89,6 @@ def add_to_list(lst, frame, content):
         lst[frame] = content
     return lst
 def load_droid_atlas(path):
-    directions = {0: "SE", 1: "E", 2: "NE", 3: "N", 4: "NW", 5: "W", 6: "SW", 7: "S"}
     images = {
         "N": {"stand": [], "walk": [], "gethit": [], "death": [], "attack": []},
         "S": {"stand": [], "walk": [], "gethit": [], "death": [], "attack": []},
@@ -61,7 +109,7 @@ def load_droid_atlas(path):
                 image_surf = pygame.image.load(os.path.join(folderpath, image)).convert_alpha()
             else:
                 line = line.split()
-                rot = directions[int(line[0][11])]
+                rot = DIRECTIONS[int(line[0][11])]
                 state = line[0][13:-7]
                 frame = int(line[0][-5])
                 pos = [int(x) for x in line[1:3]]
@@ -86,7 +134,7 @@ def load_character_configs():
                 for line in f.readlines():
                     line_split = line.split("=")
                     if line_split[0].endswith("fps"):
-                        fps[line_split[0][:-4]] = 1000 // int(line_split[1].strip())
+                        fps[line_split[0][:-4]] = int(line_split[1].strip())
             configs[path] = fps
     return configs
 def load_droid_archetypes():
@@ -129,6 +177,8 @@ def load_characters():
         final_characters[character] = temp
     return final_characters
 def load_tiles():
+    items = load_items()
+    bullets = load_bullets()
     images = load_images()
     characters = load_characters()
     for obstacle in obstacles:
@@ -141,4 +191,4 @@ def load_tiles():
             floor_tiles[index] = images[tile]
         else:
             floor_tiles[index]["images"] = [images[image] for image in floor_tiles[index]["images"]]
-    return floor_tiles, obstacles, characters
+    return floor_tiles, obstacles, characters, items, bullets

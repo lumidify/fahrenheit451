@@ -1,0 +1,5 @@
+ALL Graphics in "graphics" Folder: Taken from FreedroidRPG <http://www.freedroid.org/>, licensed under GPL
+Single_Pulse.ogg and Sword.ogg: Also taken from FreedroidRPG
+Search_Art_S31_Undercover_Operative_0.ogg: By Section 31 -Tech, http://opengameart.org/content/undercover-operative
+Configuration Files for Graphics (e.g. graphics/item_specs.py): Taken from FreedroidRPG, modified, and some converted to Python
+Code: Lumidify Productions
