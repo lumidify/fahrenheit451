@@ -676,7 +676,10 @@ class Obstacles():
                     else:
                         value = item.get()
                         try:
-                            value = float(value)
+                            if key == "after_looting":
+                                value = int(value)
+                            else:
+                                value = float(value)
                         except:
                             pass
                     if key in ["x", "y", "width", "height"]:

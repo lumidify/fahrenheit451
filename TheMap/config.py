@@ -1,1 +1,1 @@
-config = {'level_dimensions': [50, 50], 'spawn_pos': [10.0, 10.0], 'music': 'Search_Art_S31_Undercover_Operative_0.ogg'}
+config = {'spawn_pos': [10.0, 10.0], 'level_dimensions': [50, 50], 'music': 'Search_Art_S31_Undercover_Operative_0.ogg'}

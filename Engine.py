@@ -11,7 +11,7 @@ from Floor import Floor
 from pygame.locals import *
 from CONSTANTS import *
 """
-CHARACTER: PATH SMOOTHING; GETTING STUCK IN OBSTACLES
+This code is extremely bad, use at your own risk.
 """
 TILEWIDTH = 128
 TILEHEIGHT = 64
@@ -118,6 +118,7 @@ if __name__ == "__main__":
     screen_size = [screen_info.current_w, screen_info.current_h]
     screen = pygame.display.set_mode(screen_size, RESIZABLE)
     clock = pygame.time.Clock()
+    pygame.display.set_caption("Fahrenheit 451")
     engine = Engine(screen)
     if len(sys.argv) > 1:
         engine.load_map(sys.argv[1])
