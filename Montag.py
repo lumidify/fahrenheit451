@@ -24,6 +24,7 @@ class Montag(Character):
         self.after_walk = None
         self.walking = True
         self.attack_time = 500
+        self.health_time_passed = 0
     def reset(self):
         self.attack_time_passed = 0
         self.gethit_time_passed = 0
@@ -57,6 +58,8 @@ class Montag(Character):
         if new_path:
             self.walk_to(new_path)
         self.after_walk = lambda: self.pickup_item(item)
+    def has_book(self, item_id):
+        return item_id in [item["type"] for item in self.inventory["books"]]
     def pickup_item(self, item):
         if item.item_info.get("slot", None) == "weapon":
             if self.inventory["weapon"]:
@@ -66,7 +69,7 @@ class Montag(Character):
             self.inventory["weapon"] = item.item_info
             self.attack_time = item.item_info["weapon"]["attack_time"] * 1000
         else:
-            self.inventory["books"] = item.item_info
+            self.inventory["books"].append(item.item_info)
         self.obstaclemap.delete_item(item)
     def attack(self, character=None):
         self.walk_to_points = []
@@ -92,11 +95,15 @@ class Montag(Character):
                     if math.sqrt((character.grid_pos[0] - self.grid_pos[0]) ** 2 + (character.grid_pos[1] - self.grid_pos[1]) ** 2) < 1:
                         character.hit(1)
     def update(self, **kwargs):
-        self.health = 100
         current_time = kwargs.get("current_time", pygame.time.get_ticks())
         event = kwargs.get("event", None)
         mouse_pos = kwargs.get("mouse_pos", pygame.mouse.get_pos())
         if not self.dead and self.state != "death":
+            time_change = current_time - self.current_time
+            self.health_time_passed += time_change
+            if self.health_time_passed >= 10000 and self.health < 100:
+                self.health += 1
+                self.health_time_passed = 0
             if event:
                 if event.type == MOUSEBUTTONDOWN:
                     self.pressed = True

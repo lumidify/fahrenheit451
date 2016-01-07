@@ -1,8 +1,8 @@
 items = [
 
 {
-    "id": "Big kitchen knife",
-    "name": "Big Kitchen Knife",
+    "type": "Big kitchen knife",
+    "label": "Big Kitchen Knife",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -21,8 +21,8 @@ items = [
 },
 
 {
-    "id": "Cutlass",
-    "name": "Cutlass",
+    "type": "Cutlass",
+    "label": "Cutlass",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -42,8 +42,8 @@ items = [
 },
 
 {
-    "id": "Antique Greatsword",
-    "name": "Antique Greatsword",
+    "type": "Antique Greatsword",
+    "label": "Antique Greatsword",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -64,8 +64,8 @@ items = [
 },
 
 {
-    "id": "Chainsaw",
-    "name": "Chainsaw",
+    "type": "Chainsaw",
+    "label": "Chainsaw",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -86,8 +86,8 @@ items = [
 },
 
 {
-    "id": "Meat cleaver",
-    "name": "Meat Cleaver",
+    "type": "Meat cleaver",
+    "label": "Meat Cleaver",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -106,8 +106,8 @@ items = [
 },
 
 {
-    "id": "Small Axe",
-    "name": "Small Axe",
+    "type": "Small Axe",
+    "label": "Small Axe",
     "slot": "weapon",
     "weapon": {
         "damage": 4,
@@ -127,8 +127,8 @@ items = [
 },
 
 {
-    "id": "Large Axe",
-    "name": "Large Axe",
+    "type": "Large Axe",
+    "label": "Large Axe",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -149,8 +149,8 @@ items = [
 },
 
 {
-    "id": "Hunting knife",
-    "name": "Hunting Knife",
+    "type": "Hunting knife",
+    "label": "Hunting Knife",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -169,8 +169,8 @@ items = [
 },
 
 {
-    "id": "Iron pipe",
-    "name": "Iron Pipe",
+    "type": "Iron pipe",
+    "label": "Iron Pipe",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -189,8 +189,8 @@ items = [
 },
 
 {
-    "id": "Big wrench",
-    "name": "Big Wrench",
+    "type": "Big wrench",
+    "label": "Big Wrench",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -209,8 +209,8 @@ items = [
 },
 
 {
-    "id": "Crowbar",
-    "name": "Crowbar",
+    "type": "Crowbar",
+    "label": "Crowbar",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -230,8 +230,8 @@ items = [
 },
 
 {
-    "id": "Power hammer",
-    "name": "Power Hammer",
+    "type": "Power hammer",
+    "label": "Power Hammer",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -239,7 +239,7 @@ items = [
         "reloading_time": 2.000000,
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": True,
-        "ammunition": {"id": "Laser power pack", "clip": 60},
+        "ammunition": {"type": "Laser power pack", "clip": 60},
         "motion_class": "1hranged",
     },
     "durability": "30:40",
@@ -252,8 +252,8 @@ items = [
 },
 
 {
-    "id": "Mace",
-    "name": "Mace",
+    "type": "Mace",
+    "label": "Mace",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -273,8 +273,8 @@ items = [
 },
 
 {
-    "id": "Baseball bat",
-    "name": "Baseball Bat",
+    "type": "Baseball bat",
+    "label": "Baseball Bat",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -295,8 +295,8 @@ items = [
 },
 
 {
-    "id": "Iron bar",
-    "name": "Iron Bar",
+    "type": "Iron bar",
+    "label": "Iron Bar",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -317,8 +317,8 @@ items = [
 },
 
 {
-    "id": "Sledgehammer",
-    "name": "Sledgehammer",
+    "type": "Sledgehammer",
+    "label": "Sledgehammer",
     "slot": "weapon",
     "weapon": {
         "damage": 8,
@@ -339,8 +339,8 @@ items = [
 },
 
 {
-    "id": "Light saber",
-    "name": "Light Saber",
+    "type": "Light saber",
+    "label": "Light Saber",
     "slot": "weapon",
     "weapon": {
         "damage": 20,
@@ -348,7 +348,7 @@ items = [
         "reloading_time": 2.000000,
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": True,
-        "ammunition": {"id": "Laser power pack", "clip": 20},
+        "ammunition": {"type": "Laser power pack", "clip": 20},
         "two_hand": True,
         "motion_class": "1hmelee",
     },
@@ -363,8 +363,8 @@ items = [
 },
 
 {
-    "id": "Laser staff",
-    "name": "Laser Staff",
+    "type": "Laser staff",
+    "label": "Laser Staff",
     "slot": "weapon",
     "weapon": {
         "damage": 25,
@@ -372,7 +372,7 @@ items = [
         "reloading_time": 2.000000,
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": True,
-        "ammunition": {"id": "Laser power pack", "clip": 20},
+        "ammunition": {"type": "Laser power pack", "clip": 20},
         "motion_class": "1hmelee",
     },
     "requirements": {"dexterity": 40},
@@ -386,8 +386,8 @@ items = [
 },
 
 {
-    "id": "Nobody's edge",
-    "name": "Nobody's Edge",
+    "type": "Nobody's edge",
+    "label": "Nobody's Edge",
     "slot": "weapon",
     "weapon": {
         "damage": 40,
@@ -405,8 +405,8 @@ items = [
 },
 
 {
-    "id": "Laser Scalpel",
-    "name": "Laser Scalpel",
+    "type": "Laser Scalpel",
+    "label": "Laser Scalpel",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -424,8 +424,8 @@ items = [
 },
 
 {
-    "id": "Shock knife",
-    "name": "Shock Knife",
+    "type": "Shock knife",
+    "label": "Shock Knife",
     "slot": "weapon",
     "weapon": {
         "damage": 30,
@@ -443,8 +443,8 @@ items = [
 },
 
 {
-    "id": "Energy whip",
-    "name": "Energy Whip",
+    "type": "Energy whip",
+    "label": "Energy Whip",
     "slot": "weapon",
     "weapon": {
         "damage": 30,
@@ -462,18 +462,8 @@ items = [
 },
 
 {
-    "id": ".22 LR Ammunition",
-    "name": ".22 LR Ammunition",
-    "base_price": 4,
-    "inventory": {"x": 2, "y": 1,"stackable": True, "image": "weapons/22_ammo/inv_image.png" },
-    "drop": {"class": "2:6", "number": "10:60", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": ".22 Long Rifle ammunition used to be a very common ammo for target practice, mainly because it was cheap and gave little recoil. It's just too weak to penetrate any real droid armor though.",
-    "rotation_series": "weapons/22_ammo",
-},
-
-{
-    "id": ".22 Automatic",
-    "name": ".22 Automatic",
+    "type": ".22 Automatic",
+    "label": ".22 Automatic",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -482,7 +472,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": ".22 LR Ammunition", "clip": 11},
+        "ammunition": {"type": ".22 LR Ammunition", "clip": 11},
         "motion_class": "1hranged",
     },
     "durability": "70:80",
@@ -495,8 +485,8 @@ items = [
 },
 
 {
-    "id": ".22 Hunting Rifle",
-    "name": ".22 Hunting Rifle",
+    "type": ".22 Hunting Rifle",
+    "label": ".22 Hunting Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -505,7 +495,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": ".22 LR Ammunition", "clip": 11},
+        "ammunition": {"type": ".22 LR Ammunition", "clip": 11},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -519,18 +509,8 @@ items = [
 },
 
 {
-    "id": "Shotgun shells",
-    "name": "Shotgun Shells",
-    "base_price": 12,
-    "inventory": {"x": 2, "y": 1,"stackable": True, "image": "weapons/shotgun_ammo/inv_image.png" },
-    "drop": {"sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "Shotgun shells come in a range of gauges but mixing and matching shotgun ammo sizes can cause your gun to explode, taking your hand along with it. Lucky for you, all of your ammo is the same size, and fits your shotgun(s) perfectly. An additional bonus is that it all seems to be buckshot.",
-    "rotation_series": "weapons/shotgun_ammo",
-},
-
-{
-    "id": "Two Barrel sawn off shotgun",
-    "name": "Two Barrel Sawn Off Shotgun",
+    "type": "Two Barrel sawn off shotgun",
+    "label": "Two Barrel Sawn Off Shotgun",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -539,7 +519,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "shotgun", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Shotgun shells", "clip": 2},
+        "ammunition": {"type": "Shotgun shells", "clip": 2},
         "motion_class": "1hranged",
     },
     "durability": "50:60",
@@ -552,8 +532,8 @@ items = [
 },
 
 {
-    "id": "Two Barrel shotgun",
-    "name": "Two Barrel Shotgun",
+    "type": "Two Barrel shotgun",
+    "label": "Two Barrel Shotgun",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -562,7 +542,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "shotgun", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Shotgun shells", "clip": 2},
+        "ammunition": {"type": "Shotgun shells", "clip": 2},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -576,8 +556,8 @@ items = [
 },
 
 {
-    "id": "Pump action shotgun",
-    "name": "Pump Action Shotgun",
+    "type": "Pump action shotgun",
+    "label": "Pump Action Shotgun",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -586,7 +566,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "shotgun", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Shotgun shells", "clip": 8},
+        "ammunition": {"type": "Shotgun shells", "clip": 8},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -600,18 +580,8 @@ items = [
 },
 
 {
-    "id": "9x19mm Ammunition",
-    "name": "9x19mm Ammunition",
-    "base_price": 18,
-    "inventory": {"x": 2, "y": 1,"stackable": True, "image": "weapons/9mm_ammo/inv_image.png" },
-    "drop": {"class": "5:8", "number": "10:20", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "Plasma crystal load. This is the most common way of loading a plasma weapon.",
-    "rotation_series": "weapons/9mm_ammo",
-},
-
-{
-    "id": "9mm Automatic",
-    "name": "9mm Automatic",
+    "type": "9mm Automatic",
+    "label": "9mm Automatic",
     "slot": "weapon",
     "weapon": {
         "damage": 4,
@@ -620,7 +590,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "9x19mm Ammunition", "clip": 19},
+        "ammunition": {"type": "9x19mm Ammunition", "clip": 19},
         "motion_class": "1hranged",
     },
     "durability": "50:60",
@@ -633,8 +603,8 @@ items = [
 },
 
 {
-    "id": "9mm Sub Machine Gun",
-    "name": "9mm Sub Machine Gun",
+    "type": "9mm Sub Machine Gun",
+    "label": "9mm Sub Machine Gun",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -643,7 +613,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "9x19mm Ammunition", "clip": 30},
+        "ammunition": {"type": "9x19mm Ammunition", "clip": 30},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -657,18 +627,8 @@ items = [
 },
 
 {
-    "id": "7.62x39mm Ammunition",
-    "name": "7.62x39mm Ammunition",
-    "base_price": 24,
-    "inventory": {"x": 2, "y": 1,"stackable": True, "image": "weapons/7_62mm_ammo/inv_image.png" },
-    "drop": {"sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "7.62mm ammo.",
-    "rotation_series": "weapons/7_62mm_ammo",
-},
-
-{
-    "id": "7.62mm Hunting Rifle",
-    "name": "7.62mm Hunting Rifle",
+    "type": "7.62mm Hunting Rifle",
+    "label": "7.62mm Hunting Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -677,7 +637,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "7.62x39mm Ammunition", "clip": 5},
+        "ammunition": {"type": "7.62x39mm Ammunition", "clip": 5},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -691,8 +651,8 @@ items = [
 },
 
 {
-    "id": "7.62mm AK-47",
-    "name": "7.62mm AK-47",
+    "type": "7.62mm AK-47",
+    "label": "7.62mm AK-47",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -701,7 +661,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "7.62x39mm Ammunition", "clip": 30},
+        "ammunition": {"type": "7.62x39mm Ammunition", "clip": 30},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -715,18 +675,8 @@ items = [
 },
 
 {
-    "id": ".50 BMG (12.7x99mm) Ammunition",
-    "name": ".50 BMG (12.7x99mm) Ammunition",
-    "base_price": 200,
-    "inventory": {"x": 1, "y": 1, "image": "weapons/50_bmg_ammo/inv_image.png" },
-    "drop": {"sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "Browning Machine Gun ammo.",
-    "rotation_series": "weapons/50_bmg_ammo",
-},
-
-{
-    "id": "Barrett M82 Sniper Rifle",
-    "name": "Barrett M82 Sniper Rifle",
+    "type": "Barrett M82 Sniper Rifle",
+    "label": "Barrett M82 Sniper Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 10,
@@ -735,7 +685,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "single", "speed": 30.000000, "lifetime": -1.000000},
-        "ammunition": {"id": ".50 BMG (12.7x99mm) Ammunition", "clip": 10},
+        "ammunition": {"type": ".50 BMG (12.7x99mm) Ammunition", "clip": 10},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -750,18 +700,8 @@ items = [
 },
 
 {
-    "id": "Laser power pack",
-    "name": "Laser Power Pack",
-    "base_price": 2,
-    "inventory": {"x": 2, "y": 2,"stackable": True, "image": "weapons/laser_power_pack/inv_image.png" },
-    "drop": {"class": "2:9", "number": "10:20", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "Energy crystal load for laser weapons and other power tools. Each round fired consumes a load within the crystal.",
-    "rotation_series": "weapons/laser_power_pack",
-},
-
-{
-    "id": "Laser pistol",
-    "name": "Laser Pistol",
+    "type": "Laser pistol",
+    "label": "Laser Pistol",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -770,7 +710,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "laser_rifle", "speed": 90.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 20},
+        "ammunition": {"type": "Laser power pack", "clip": 20},
         "motion_class": "1hranged",
     },
     "durability": "100:110",
@@ -783,8 +723,8 @@ items = [
 },
 
 {
-    "id": "Laser Rifle",
-    "name": "Laser Rifle",
+    "type": "Laser Rifle",
+    "label": "Laser Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 8,
@@ -793,7 +733,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "laser_rifle", "speed": 90.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 40},
+        "ammunition": {"type": "Laser power pack", "clip": 40},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -807,8 +747,8 @@ items = [
 },
 
 {
-    "id": "Laser Pulse Rifle",
-    "name": "Laser Pulse Rifle",
+    "type": "Laser Pulse Rifle",
+    "label": "Laser Pulse Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 4,
@@ -817,7 +757,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "laser_rifle", "speed": 90.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 60},
+        "ammunition": {"type": "Laser power pack", "clip": 60},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -831,8 +771,8 @@ items = [
 },
 
 {
-    "id": "Laser Pulse Cannon",
-    "name": "Laser Pulse Cannon",
+    "type": "Laser Pulse Cannon",
+    "label": "Laser Pulse Cannon",
     "slot": "weapon",
     "weapon": {
         "damage": 6,
@@ -841,7 +781,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "military", "speed": 90.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 80},
+        "ammunition": {"type": "Laser power pack", "clip": 80},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -856,18 +796,8 @@ items = [
 },
 
 {
-    "id": "Plasma energy container",
-    "name": "Plasma Energy Container",
-    "base_price": 4,
-    "inventory": {"x": 2, "y": 2,"stackable": True, "image": "weapons/plasma_energy_container/inv_image.png" },
-    "drop": {"class": "2:9", "number": "10:20", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "A container filled with all materials and energy required to make plasma weapons work in one handy and relatively safe package. This is the most common way of loading a plasma weapon.",
-    "rotation_series": "weapons/plasma_energy_container",
-},
-
-{
-    "id": "Plasma pistol",
-    "name": "Plasma Pistol",
+    "type": "Plasma pistol",
+    "label": "Plasma Pistol",
     "slot": "weapon",
     "weapon": {
         "damage": 12,
@@ -876,7 +806,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "plasma_white", "speed": 15.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Plasma energy container", "clip": 6},
+        "ammunition": {"type": "Plasma energy container", "clip": 6},
         "motion_class": "1hranged",
     },
     "durability": "30:40",
@@ -889,8 +819,8 @@ items = [
 },
 
 {
-    "id": "Plasma Gun",
-    "name": "Plasma Gun",
+    "type": "Plasma Gun",
+    "label": "Plasma Gun",
     "slot": "weapon",
     "weapon": {
         "damage": 20,
@@ -899,7 +829,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "plasma_white", "speed": 1.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Plasma energy container", "clip": 12},
+        "ammunition": {"type": "Plasma energy container", "clip": 12},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -913,18 +843,8 @@ items = [
 },
 
 {
-    "id": "2 mm Exterminator Ammunition",
-    "name": "2mm Exterminator Ammunition",
-    "base_price": 5,
-    "inventory": {"x": 2, "y": 2,"stackable": True, "image": "weapons/exterminator_ammo/inv_image.png" },
-    "drop": {"class": "6:9", "number": "5:10", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
-    "description": "Exterminators need this kind of ammunition. It can cause skin irritations due to leaking extermination radiation when carried close to the body for long time.",
-    "rotation_series": "weapons/exterminator_ammo",
-},
-
-{
-    "id": "Exterminator",
-    "name": "Exterminator",
+    "type": "Exterminator",
+    "label": "Exterminator",
     "slot": "weapon",
     "weapon": {
         "damage": 40,
@@ -933,7 +853,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "exterminator", "speed": 0.2500000, "lifetime": -1.000000},
-        "ammunition": {"id": "2 mm Exterminator Ammunition", "clip": 2},
+        "ammunition": {"type": "2 mm Exterminator Ammunition", "clip": 2},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -947,8 +867,8 @@ items = [
 },
 
 {
-    "id": "The Super Exterminator!!!",
-    "name": "The Super Exterminator!!!",
+    "type": "The Super Exterminator!!!",
+    "label": "The Super Exterminator!!!",
     "slot": "weapon",
     "weapon": {
         "damage": 90,
@@ -957,7 +877,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "exterminator", "speed": 3.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "2 mm Exterminator Ammunition", "clip": 2},
+        "ammunition": {"type": "2 mm Exterminator Ammunition", "clip": 2},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -971,8 +891,8 @@ items = [
 },
 
 {
-    "id": "Electro Laser Rifle",
-    "name": "Electro Laser Rifle",
+    "type": "Electro Laser Rifle",
+    "label": "Electro Laser Rifle",
     "slot": "weapon",
     "weapon": {
         "damage": 50,
@@ -981,7 +901,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "exterminator", "speed": 70.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 8},
+        "ammunition": {"type": "Laser power pack", "clip": 8},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -995,8 +915,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Emergency shutdown",
-    "name": "Source Book of Emergency Shutdown",
+    "type": "Book 1",
+    "label": "Source Book of Emergency Shutdown",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Emergency shutdown"},
     "base_price": 500,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
@@ -1006,8 +926,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Check system integrity",
-    "name": "Source Book of Check System Integrity",
+    "type": "Book 2",
+    "label": "Source Book of Check System Integrity",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Check system integrity"},
     "base_price": 250,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_white.png" },
@@ -1017,8 +937,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Sanctuary",
-    "name": "Source Book of Sanctuary",
+    "type": "Book 3",
+    "label": "Source Book of Sanctuary",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Sanctuary"},
     "base_price": 450,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
@@ -1028,8 +948,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Malformed packet",
-    "name": "Source Book of Malformed Packet",
+    "type": "Book 4",
+    "label": "Source Book of Malformed Packet",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Malformed packet"},
     "base_price": 300,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_purple.png" },
@@ -1039,8 +959,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Calculate Pi",
-    "name": "Source Book of Calculate Pi",
+    "type": "Book 5",
+    "label": "Source Book of Calculate Pi",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Calculate Pi"},
     "base_price": 300,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_orange.png" },
@@ -1050,8 +970,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Blue Screen",
-    "name": "Source Book of Blue Screen",
+    "type": "Book 6",
+    "label": "Source Book of Blue Screen",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Blue Screen"},
     "base_price": 300,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_blue.png" },
@@ -1061,8 +981,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Broadcast Blue Screen",
-    "name": "Source Book of Broadcast Blue Screen",
+    "type": "Book 7",
+    "label": "Source Book of Broadcast Blue Screen",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Broadcast Blue Screen"},
     "base_price": 900,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_blue.png" },
@@ -1072,8 +992,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Invisibility",
-    "name": "Source Book of Invisibility",
+    "type": "Book 8",
+    "label": "Source Book of Invisibility",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Invisibility"},
     "base_price": 600,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
@@ -1083,8 +1003,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Virus",
-    "name": "Source Book of Virus",
+    "type": "Book 9",
+    "label": "Source Book of Virus",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Virus"},
     "base_price": 450,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_red.png" },
@@ -1094,8 +1014,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Broadcast virus",
-    "name": "Source Book of Broadcast Virus",
+    "type": "Book 10",
+    "label": "Source Book of Broadcast Virus",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Broadcast virus"},
     "base_price": 1350,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_red.png" },
@@ -1105,148 +1025,8 @@ items = [
 },
 
 {
-    "id": "Source Book of Dispel smoke",
-    "name": "Source Book of Dispel Smoke",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Dispel smoke"},
-    "base_price": 600,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_grey.png" },
-    "drop": {"class": "3:9", "sound": "drop_book_sound.ogg"},
-    "description": "By heating up the chips with a malformed program, you can cause them to release the magic smoke which keeps the bot running.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Killer poke",
-    "name": "Source Book of Killer Poke",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Killer poke"},
-    "base_price": 1200,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_greenblue.png" },
-    "drop": {"class": "5:9", "sound": "drop_book_sound.ogg"},
-    "description": "Messing around with the bot's memory can cause it to damage itself, but the damage is greatly variable.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Repair equipment",
-    "name": "Source Book of Repair Equipment",
-    "right_use": {"tooltip": "Learn about repairing items", "add_skill": "Repair equipment"},
-    "base_price": 1200,
-    "inventory": {"x": 2, "y": 2, "image": "repairbook/inv_image.png" },
-    "drop": {"class": "4:9", "sound": "drop_book_sound.ogg"},
-    "description": "This manual will help you fix a broken dishwasher, a car, or a gun. The covers does not mention anything about breaking robots however.",
-    "rotation_series": "repairbook",
-},
-
-{
-    "id": "Source Book of Plasma discharge",
-    "name": "Source Book of Plasma Discharge",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Plasma discharge"},
-    "base_price": 600,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "The overload setting exists for emergencies. Plasma does not discriminate between bots and humans. Everything is the same to it.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Nethack",
-    "name": "Source Book of Nethack",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Nethack"},
-    "base_price": 450,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_yellow.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "The open source game called Nethack is one of the world's greatest wasters of time. Machines don't care about it, but humans can get sucked in quite deeply.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Ricer CFLAGS",
-    "name": "Source Book of Ricer CFLAGS",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Ricer CFLAGS"},
-    "base_price": 600,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "Optimization is the root of all evil. You can gain some temporary improvements to your system, but in the end you are only likely to cause permanent damage.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Reverse-engineer",
-    "name": "Source Book of Reverse-engineer",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Reverse-engineer"},
-    "base_price": 450,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_orange.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "There is some dark magic in the art of turning bots inside-out to learn all their secrets.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Light",
-    "name": "Source Book of Light",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Light"},
-    "base_price": 450,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_white.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "Let there be light...",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Source Book of Network Mapper",
-    "name": "Source Book of Network Mapper",
-    "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Network Mapper"},
-    "base_price": 300,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "Knowing what your enemies are up to is easy with a little signal intelligence. Displays enemy locations on your automap.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Nuclear Science for Dummies IV",
-    "name": "Subatomic and Nuclear Science for Dummies, Volume IV",
-    "base_price": 600,
-    "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "From the back of the cover: 'Subatomic and Nuclear Science for Dummies, Volume IV is the most popular handbook series for learning nuclear science: Learn to generate enough power to keep you town lit up for a decade! Discover how to really scare neighboring countries! Find out how to make your very own mutant pet!' This obviously important tome of knowledge from before the great assault comes with no warranty whatsoever.",
-    "rotation_series": "spellbook",
-},
-
-{
-    "id": "Manual of the Automated Factory",
-    "name": "Manual of the Automated Factory",
-    "base_price": 0,
-    "inventory": {"x": 2, "y": 2, "image": "repairbook/inv_image.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "This book describes the operation and repair of automated factories. Included are common error codes and how to fix them. However, most repairs simply call for liberal application of 'Elbow Grease'.",
-    "rotation_series": "repairbook",
-},
-
-{
-    "id": "Manual of the Extract Bot Parts",
-    "name": "Manual of the Extract Bot Parts",
-    "right_use": {"tooltip": "USE FOR CHEATING ONLY. If you see this online, please report the bug.", "add_skill": "Extract bot parts"},
-    "base_price": 0,
-    "inventory": {"x": 2, "y": 2, "image": "repairbook/inv_image.png" },
-    "drop": {"sound": "drop_book_sound.ogg"},
-    "description": "USE FOR CHEATING ONLY. If you see this online, please report the bug.",
-    "rotation_series": "repairbook",
-},
-
-{
-    "id": "Valuable Circuits",
-    "name": "Valuable Circuits",
-    "base_price": 1,
-    "inventory": {"x": 1, "y": 1,"stackable": True, "image": "cyberbucks/inv_image.png" },
-    "drop": {"sound": "Item_Drop_Sound_2.ogg"},
-    "description": "The new monetary standard of the world. With the collapse of the banking system, the precious metals in bot circuitry has literally become hard cash. A bit hard to come by though, as the bots are not likely to just hand it over...",
-    "rotation_series": "cyberbucks",
-},
-
-{
-    "id": "NPC Hand to hand weapon",
-    "name": "NPC Hand to Hand Weapon",
+    "type": "NPC Hand to hand weapon",
+    "label": "NPC Hand to Hand Weapon",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -1265,8 +1045,8 @@ items = [
 },
 
 {
-    "id": "Droid 123 Weak Robotic Arm",
-    "name": "Droid 123 Weak Robotic Arm",
+    "type": "Droid 123 Weak Robotic Arm",
+    "label": "Droid 123 Weak Robotic Arm",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -1285,8 +1065,8 @@ items = [
 },
 
 {
-    "id": "Droid 139 Plasma Trash Vaporiser",
-    "name": "Droid 139 Plasma Trash Vaporiser",
+    "type": "Droid 139 Plasma Trash Vaporiser",
+    "label": "Droid 139 Plasma Trash Vaporiser",
     "slot": "weapon",
     "weapon": {
         "damage": 2,
@@ -1294,7 +1074,7 @@ items = [
         "reloading_time": 6.6500000,
         "melee": False,
         "bullet": {"type": "plasma_white", "speed": 1.000000, "lifetime": 2.000000},
-        "ammunition": {"id": "Plasma energy container", "clip": 3},
+        "ammunition": {"type": "Plasma energy container", "clip": 3},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1308,8 +1088,8 @@ items = [
 },
 
 {
-    "id": "Droid 247 Robotic Arm",
-    "name": "Droid 247 Robotic Arm",
+    "type": "Droid 247 Robotic Arm",
+    "label": "Droid 247 Robotic Arm",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -1328,8 +1108,8 @@ items = [
 },
 
 {
-    "id": "Droid 249 Pulse Laser Welder",
-    "name": "Droid 249 Pulse Laser Welder",
+    "type": "Droid 249 Pulse Laser Welder",
+    "label": "Droid 249 Pulse Laser Welder",
     "slot": "weapon",
     "weapon": {
         "damage": 1,
@@ -1337,7 +1117,7 @@ items = [
         "reloading_time": 4.8500000,
         "melee": False,
         "bullet": {"type": "half_pulse", "speed": 2.000000, "lifetime": 2.00000},
-        "ammunition": {"id": "Laser power pack", "clip": 15},
+        "ammunition": {"type": "Laser power pack", "clip": 15},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1351,8 +1131,8 @@ items = [
 },
 
 {
-    "id": "Droid 296 Plasmabeam Cutter",
-    "name": "Droid 296 Plasmabeam Cutter",
+    "type": "Droid 296 Plasmabeam Cutter",
+    "label": "Droid 296 Plasmabeam Cutter",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -1371,8 +1151,8 @@ items = [
 },
 
 {
-    "id": "Droid 302 Overcharged Barcode Reader",
-    "name": "Droid 302 Overcharged Barcode Reader",
+    "type": "Droid 302 Overcharged Barcode Reader",
+    "label": "Droid 302 Overcharged Barcode Reader",
     "slot": "weapon",
     "weapon": {
         "damage": 5,
@@ -1391,8 +1171,8 @@ items = [
 },
 
 {
-    "id": "Droid 329 Dual Overcharged Barcode Reader",
-    "name": "Droid 329 Dual Overcharged Barcode Reader",
+    "type": "Droid 329 Dual Overcharged Barcode Reader",
+    "label": "Droid 329 Dual Overcharged Barcode Reader",
     "slot": "weapon",
     "weapon": {
         "damage": 8,
@@ -1411,8 +1191,8 @@ items = [
 },
 
 {
-    "id": "Droid 420 Laser Scalpel",
-    "name": "Droid 420 Laser Scalpel",
+    "type": "Droid 420 Laser Scalpel",
+    "label": "Droid 420 Laser Scalpel",
     "slot": "weapon",
     "weapon": {
         "damage": 10,
@@ -1431,8 +1211,8 @@ items = [
 },
 
 {
-    "id": "Droid 476 Small Laser",
-    "name": "Droid 476 Small Laser",
+    "type": "Droid 476 Small Laser",
+    "label": "Droid 476 Small Laser",
     "slot": "weapon",
     "weapon": {
         "damage": 4,
@@ -1440,7 +1220,7 @@ items = [
         "reloading_time": 1.200000,
         "melee": False,
         "bullet": {"type": "single", "speed": 4.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 5},
+        "ammunition": {"type": "Laser power pack", "clip": 5},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1454,8 +1234,8 @@ items = [
 },
 
 {
-    "id": "Droid 493 Power Hammer",
-    "name": "Droid 493 Power Hammer",
+    "type": "Droid 493 Power Hammer",
+    "label": "Droid 493 Power Hammer",
     "slot": "weapon",
     "weapon": {
         "damage": 10,
@@ -1474,8 +1254,8 @@ items = [
 },
 
 {
-    "id": "Droid 516 Robotic Fist",
-    "name": "Droid 516 Robotic Fist",
+    "type": "Droid 516 Robotic Fist",
+    "label": "Droid 516 Robotic Fist",
     "slot": "weapon",
     "weapon": {
         "damage": 12,
@@ -1494,8 +1274,8 @@ items = [
 },
 
 {
-    "id": "Droid 543 Tree Harvester",
-    "name": "Droid 543 Tree Harvester",
+    "type": "Droid 543 Tree Harvester",
+    "label": "Droid 543 Tree Harvester",
     "slot": "weapon",
     "weapon": {
         "damage": 8,
@@ -1514,8 +1294,8 @@ items = [
 },
 
 {
-    "id": "Droid 571 Robotic Fist",
-    "name": "Droid 571 Robotic Fist",
+    "type": "Droid 571 Robotic Fist",
+    "label": "Droid 571 Robotic Fist",
     "slot": "weapon",
     "weapon": {
         "damage": 15,
@@ -1534,8 +1314,8 @@ items = [
 },
 
 {
-    "id": "Droid 598 Robotic Fist",
-    "name": "Droid 598 Robotic Fist",
+    "type": "Droid 598 Robotic Fist",
+    "label": "Droid 598 Robotic Fist",
     "slot": "weapon",
     "weapon": {
         "damage": 18,
@@ -1554,8 +1334,8 @@ items = [
 },
 
 {
-    "id": "Droid 7xx Tux Seeking Missiles",
-    "name": "Droid 7xx Tux Seeking Missiles",
+    "type": "Droid 7xx Tux Seeking Missiles",
+    "label": "Droid 7xx Tux Seeking Missiles",
     "slot": "weapon",
     "weapon": {
         "damage": 15,
@@ -1563,7 +1343,7 @@ items = [
         "reloading_time": 0.800000,
         "melee": False,
         "bullet": {"type": "single", "speed": 16.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 30},
+        "ammunition": {"type": "Laser power pack", "clip": 30},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1577,8 +1357,8 @@ items = [
 },
 
 {
-    "id": "Droid Advanced Twin Laser",
-    "name": "Droid Advanced Twin Laser",
+    "type": "Droid Advanced Twin Laser",
+    "label": "Droid Advanced Twin Laser",
     "slot": "weapon",
     "weapon": {
         "damage": 15,
@@ -1586,7 +1366,7 @@ items = [
         "reloading_time": 2.600000,
         "melee": False,
         "bullet": {"type": "military", "speed": 60.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 30},
+        "ammunition": {"type": "Laser power pack", "clip": 30},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1601,8 +1381,8 @@ items = [
 },
 
 {
-    "id": "Droid 883 Exterminator",
-    "name": "Droid 883 Exterminator",
+    "type": "Droid 883 Exterminator",
+    "label": "Droid 883 Exterminator",
     "slot": "weapon",
     "weapon": {
         "damage": 10,
@@ -1610,7 +1390,7 @@ items = [
         "reloading_time": 3.000000,
         "melee": False,
         "bullet": {"type": "exterminator", "speed": 4.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "2 mm Exterminator Ammunition", "clip": 2},
+        "ammunition": {"type": "2 mm Exterminator Ammunition", "clip": 2},
         "two_hand": True,
         "motion_class": "2hranged",
     },
@@ -1625,8 +1405,8 @@ items = [
 },
 
 {
-    "id": "Autogun Laser Pistol",
-    "name": "Autogun Laser Pistol",
+    "type": "Autogun Laser Pistol",
+    "label": "Autogun Laser Pistol",
     "slot": "weapon",
     "weapon": {
         "damage": 3,
@@ -1635,7 +1415,7 @@ items = [
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
         "melee": False,
         "bullet": {"type": "laser_rifle", "speed": 50.000000, "lifetime": -1.000000},
-        "ammunition": {"id": "Laser power pack", "clip": 1},
+        "ammunition": {"type": "Laser power pack", "clip": 1},
         "motion_class": "1hranged",
     },
     "durability": "100:110",
@@ -1648,18 +1428,8 @@ items = [
 },
 
 {
-    "id": "PC LOAD LETTER",
-    "name": "PC LOAD LETTER",
-    "base_price": 0,
-    "inventory": {"x": 1, "y": 1, "image": "stock_certificate/inv_image.png" },
-    "drop": {"sound": "Item_Drop_Sound_4.ogg"},
-    "description": "An envelop saying 'PC LOAD LETTERS'. I have no idea what that means...",
-    "rotation_series": "stock_certificate",
-},
-
-{
-    "id": "Cheat Gun",
-    "name": "Cheat Gun",
+    "type": "Cheat Gun",
+    "label": "Cheat Gun",
     "slot": "weapon",
     "weapon": {
         "damage": 9999,
@@ -1680,8 +1450,8 @@ items = [
 },
 
 {
-    "id": "Small Tutorial Axe",
-    "name": "Small Tutorial Axe",
+    "type": "Small Tutorial Axe",
+    "label": "Small Tutorial Axe",
     "slot": "weapon",
     "weapon": {
         "damage": 3,

@@ -713,27 +713,6 @@ gethit_recover_time=0.30
 graphics_path=bartender
 description=This is the bartender. Care for a drink?
 
-** Start of new Robot: ** 
-droidname=TRM
-label=ERROR: THIS IS A TERMINAL
-portrait_path=NONE_AVAILABLE_YET
-speed=0
-class=100
-drop_item_class=0
-health=1
-heal_rate=1
-experience_reward=0
-aggression_distance=0
-time_spent_eyeing_player=0
-weapon=NPC Hand to hand weapon
-greeting_sound=-1
-death_sound=none
-attack_sound=none
-hit_probability=0
-gethit_recover_time=0
-graphics_path=terminal
-description=This is a terminal.
-
 ** Start of new Robot: **
 droidname=GUN
 label=Autogun
@@ -774,24 +753,3 @@ hit_probability=100
 gethit_recover_time=1.00
 graphics_path=arthur
 description=It has long since been known that game development is the most important job in the world. Also, the coolest. We know that thanks to this guy.
-
-** Start of new Robot: **
-droidname=STM
-label=ERROR: THIS IS A TERMINAL
-portrait_path=NONE_AVAILABLE_YET
-speed=0
-class=100
-drop_item_class=0
-health=1
-heal_rate=1
-experience_reward=0
-aggression_distance=0
-time_spent_eyeing_player=0
-weapon=NPC Hand to hand weapon
-greeting_sound=-1
-death_sound=none
-attack_sound=none
-hit_probability=0
-gethit_recover_time=0
-graphics_path=terminal_secure
-description=This is a secure terminal.

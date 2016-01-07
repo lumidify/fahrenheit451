@@ -1,8 +1,6 @@
 import os
 import pygame
 import importlib
-pygame.init()
-screen = pygame.display.set_mode((0, 0))
 from graphics.obstacles.obstacles import *
 from graphics.floor_tiles.floor_tiles import *
 DROIDPATH = os.path.join("graphics", "droids")
@@ -30,7 +28,7 @@ def load_items():
                         item["offset"][1] = int(line.split("=")[1].strip())
         except:
             pass
-        final[item["id"]] = item
+        final[item["type"]] = item
     return final
 def load_bullets():
     temp = importlib.import_module("graphics.bullet_specs")

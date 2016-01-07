@@ -1,5 +1,8 @@
 ALL Graphics in "graphics" Folder: Taken from FreedroidRPG <http://www.freedroid.org/>, licensed under GPL
 Single_Pulse.ogg and Sword.ogg: Also taken from FreedroidRPG
-Search_Art_S31_Undercover_Operative_0.ogg: By Section 31 -Tech, http://opengameart.org/content/undercover-operative
+Search_Art_S31_Undercover_Operative_0.ogg: By Section 31 -Tech <http://opengameart.org/content/undercover-operative>
+wingame.ogg: "Home" by Erie <http://opengameart.org/content/home>
+Sad_Piano_3.ogg: "Sad Piano" by megaPixelMusic <https://soundcloud.com/megapixelmusic>, original - http://opengameart.org/content/sad-piano-0
+Fantasy.ogg: by Boogey999 <http://opengameart.org/content/fantasy-0>
 Configuration Files for Graphics (e.g. graphics/item_specs.py): Taken from FreedroidRPG, modified, and some converted to Python
 Code: Lumidify Productions

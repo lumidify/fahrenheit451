@@ -2,6 +2,7 @@ import os
 import sys
 import math
 import pygame
+from call_trigger import *
 from CONSTANTS import *
 from pygame.locals import *
 from Engine import *
@@ -10,8 +11,8 @@ TILEHEIGHT = 64
 FONT = pygame.font.Font("Lumidify_Casual.ttf", 20)
 BULLET_SOUND = pygame.mixer.Sound("Single_Pulse.ogg")
 SWORD_SOUND = pygame.mixer.Sound("Sword.ogg")
-BULLET_SOUND.set_volume(0.3)
-SWORD_SOUND.set_volume(0.3)
+BULLET_SOUND.set_volume(0.1)
+SWORD_SOUND.set_volume(0.5)
 
 class Character():
     def __init__(self, screen, **kwargs):
@@ -27,6 +28,7 @@ class Character():
         self.label = kwargs.get("label", "DEFAULT NAME")
         self.images = kwargs["images"]
         self.weapon = kwargs.get("weapon", None)
+        self.ondeath = kwargs.get("ondeath", None)
         self.walk_to_points = []
         self.last_walk_to_pos = []
         self.fps = kwargs["fps"]
@@ -41,7 +43,7 @@ class Character():
         self.speed = kwargs.get("speed", 0.1)
         self.adjusted_speed = self.speed / self.fps["walk"]
         self.frame = 0
-        self.dead = False
+        self.dead = kwargs.get("dead", False)
         self.perfect_angle = 90
         self.next_delta = [0, 0]
         self.selected = False
@@ -104,6 +106,8 @@ class Character():
         self.state = "death"
         self.frame = 0
         self.selectable = False
+        if self.ondeath:
+            call_trigger(self.ondeath, self.obstaclemap, self.identifier, self)
     def turn_to(self, character):
         deltax = character.grid_pos[0] - self.grid_pos[0]
         deltay = self.grid_pos[1] - character.grid_pos[1]

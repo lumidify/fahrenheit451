@@ -75,7 +75,7 @@ class QuadTree():
                 branch.draw()
     def collidepoint(self, point):
         hit_list = []
-        if len(self.branches) > 0:
+        if self.branches:
             for branch in self.branches:
                 if branch.rect.collidepoint(point):
                     hit_list += branch.collidepoint(point)

@@ -1,3 +1,1 @@
-triggers = [
-{"x": 11, "y": 11, "width": 1, "height": 1, "deactivate_after_use": False, "trigger": ["CHANGEMAP", "TheMap1", [0, 0]]}
-]
+triggers = [{'y': 11, 'height': 1, 'width': 1, 'trigger': ['CHANGEMAP', 'TheMap1', 0, 0], 'x': 11}, {'y': 9.0, 'height': 3.0, 'width': 3.0, 'trigger': ['TRYWINGAME'], 'x': -0.017187499999999994}]

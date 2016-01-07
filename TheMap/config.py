@@ -1,4 +1,1 @@
-config = {
-"spawn_pos": [10, 10],
-"music": "Search_Art_S31_Undercover_Operative_0.ogg"
-}
+config = {'level_dimensions': [50, 50], 'spawn_pos': [10.0, 10.0], 'music': 'Search_Art_S31_Undercover_Operative_0.ogg'}

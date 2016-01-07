@@ -11,6 +11,12 @@ FLOORPATH = os.path.join("graphics", "floor_tiles")
 OBSTACLEPATH = os.path.join("graphics", "obstacles")
 ITEMPATH = os.path.join("graphics", "items")
 
+def load_module(path):
+    spec = importlib.util.spec_from_file_location("module.name", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 class Tile():
     def __init__(self, screen, tile_dict, grid_pos):
         self.screen = screen
@@ -70,7 +76,7 @@ class Floor():
     def load_tilemap(self, tilemap_path):
         
         self.layers = []
-        temp = importlib.import_module(tilemap_path.replace(os.sep, "."))
+        temp = load_module(tilemap_path)
         for layer in temp.layers:
             self.layers.append([])
             for y, line in enumerate(layer.strip().splitlines()):
