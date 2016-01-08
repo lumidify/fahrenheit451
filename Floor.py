@@ -18,8 +18,9 @@ def load_module(path):
     return module
 
 class Tile():
-    def __init__(self, screen, tile_dict, grid_pos):
+    def __init__(self, screen, tile_dict, grid_pos, tiletype=None):
         self.screen = screen
+        self.tiletype = tiletype
         self.image = tile_dict["image"]
         self.region = tile_dict["region"]
         self.offset = tile_dict["offset"]
@@ -31,8 +32,9 @@ class Tile():
     def draw(self, screen_offset):
         self.screen.blit(self.image, (self.isox + screen_offset[0], self.isoy + screen_offset[1]), self.region)
 class AnimatedTile():
-    def __init__(self, screen, tile_dict, grid_pos):
+    def __init__(self, screen, tile_dict, grid_pos, tiletype=None):
         self.screen = screen
+        self.tiletype = tiletype
         self.images = [info["image"] for info in tile_dict["images"]]
         self.regions = [info["region"] for info in tile_dict["images"]]
         self.offsets = [info["offset"] for info in tile_dict["images"]]
@@ -71,6 +73,20 @@ class Floor():
         self.screen = screen
         self.tiles = tiles
         self.layers = [[]]
+    def save(self, path, layers):
+        temp_layers = []
+        for layer in layers:
+            temp_layers.append("")
+            for line in layer:
+                temp_line = []
+                for x in line:
+                    if x is None:
+                        temp_line.append("-1")
+                    else:
+                        temp_line.append(str(x.tiletype))
+                temp_layers[-1] = temp_layers[-1] + " ".join(temp_line) + "\n"
+        with open(path, "w") as f:
+            f.write("layers = " + repr(temp_layers))
     def add_layer(self):
         self.layers.append([])
     def load_tilemap(self, tilemap_path):
@@ -91,9 +107,9 @@ class Floor():
         else:
             tile_dict = self.tiles[tile_id]
             if tile_dict.get("image", None):
-                return Tile(self.screen, tile_dict, grid_pos)
+                return Tile(self.screen, tile_dict, grid_pos, tile_id)
             else:
-                return AnimatedTile(self.screen, tile_dict, grid_pos)
+                return AnimatedTile(self.screen, tile_dict, grid_pos, tile_id)
     def update(self, current_time=None):
         if not current_time:
             current_time = pygame.time.get_ticks()

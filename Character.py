@@ -17,6 +17,9 @@ SWORD_SOUND.set_volume(0.5)
 class Character():
     def __init__(self, screen, **kwargs):
         self.screen = screen
+        self.type = kwargs.get("name")
+        self.orig_info = kwargs.get("orig_info", {})
+        self.weapon_name = kwargs.get("weapon", None)
         self.direction = kwargs.get("direction", "N")
         self.health = kwargs.get("health", 10)
         self.side = kwargs.get("side", "enemy")
@@ -27,7 +30,7 @@ class Character():
         self.identifier = kwargs.get("id", None)
         self.label = kwargs.get("label", "DEFAULT NAME")
         self.images = kwargs["images"]
-        self.weapon = kwargs.get("weapon", None)
+        self.weapon = kwargs.get("weapon_final", None)
         self.ondeath = kwargs.get("ondeath", None)
         self.walk_to_points = []
         self.last_walk_to_pos = []
@@ -67,6 +70,29 @@ class Character():
             self.vel[0] = math.cos(self.perfect_angle)
             self.vel[1] = -math.sin(self.perfect_angle)
             self.adjusted_vel = [self.vel[0] * (self.adjusted_speed * magnitude), self.vel[1] * (self.adjusted_speed * magnitude)]
+    def get_dict(self):
+        temp = {"x": self.grid_pos[0], "y": self.grid_pos[1], "name": self.type}
+        if self.direction != "N":
+            temp["direction"] = self.direction
+        if self.health != 10:
+            temp["health"] = self.health
+        if self.aggression_distance != self.orig_info["aggression_distance"]:
+            temp["aggression_distance"] = self.aggression_distance
+        if self.identifier is not None:
+            temp["id"] = self.identifier
+        if self.label != self.orig_info["label"]:
+            temp["label"] = self.label
+        if self.weapon is not None and self.weapon_name != self.orig_info["weapon"]:
+            temp["weapon"] = self.weapon_name
+        if self.ondeath is not None:
+            temp["ondeath"] = self.ondeath
+        if self.dead:
+            temp["dead"] = self.dead
+        if self.waypoints:
+            temp["waypoints"] = self.waypoints
+        if self.area:
+            temp["random_walk_area"] = self.area
+        return temp
     def walk(self):
         magnitude = self.walk_time_passed / self.individual_frame_time
         self.walk_time_passed = 0

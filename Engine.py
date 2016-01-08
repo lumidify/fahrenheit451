@@ -42,10 +42,49 @@ class Engine():
         self.active_layer = 0
         self.screen_offset = [0, 0]
         self.loaded_maps = {}
+        self.saved_maps = []
         self.current_map = ""
         self.wongame = False
         self.lostgame = False
+    def savegame(self):
+        if not os.path.isdir("save"):
+            os.mkdir("save")
+        for path, item in self.loaded_maps.items():
+            final_path = os.path.join("save", path)
+            if not os.path.exists(final_path):
+                os.makedirs(final_path)
+            self.obstacles.save(final_path, item["characters"] + item["dead_characters"], item["item_map"], item["triggers"], item["obstacles"])
+            self.floor.save(os.path.join(final_path, "floor.py"), item["floor"])
+            with open(os.path.join(final_path, "config.py"), "w") as f:
+                f.write("config = " + repr(item["config"]))
+        if not os.path.exists(os.path.join("save", self.current_map)):
+            os.makedirs(os.path.join("save", self.current_map))
+        self.obstacles.save(os.path.join("save", self.current_map), self.obstacles.charactermap + self.obstacles.dead_characters, self.obstacles.item_map, self.obstacles.triggers, self.obstacles.layers)
+        self.floor.save(os.path.join("save", self.current_map, "floor.py"), self.floor.layers)
+        with open(os.path.join("save", self.current_map, "config.py"), "w") as f:
+            f.write("config = " + repr(self.config))
+        player_config = {"dead": self.player.dead, "grid_pos": self.player.grid_pos.copy(), "current_map": self.current_map, "won": self.wongame, "lost": self.lostgame, "inventory": self.player.get_inventory(), "health": self.player.health}
+        with open(os.path.join("save", "config.py"), "w") as f:
+            f.write("player_config = " + repr(player_config))
+    def load_game(self):
+        if os.path.isdir("save"):
+            player_config = load_module(os.path.join("save", "config.py")).player_config.copy()
+            self.player.reset()
+            self.player.dead = player_config["dead"]
+            self.player.load_inventory(player_config["inventory"])
+            self.saved_maps = os.listdir("save")
+            self.current_map = player_config["current_map"]
+            self.player.health = player_config["health"]
+            self.saved_maps = os.listdir("save")
+            self.load_map(self.current_map, spawn_pos=player_config["grid_pos"])
+            if player_config["won"]:
+                self.wingame()
+            elif player_config["lost"]:
+                self.losegame()
     def load_map(self, path, **kwargs):
+        if path in self.saved_maps:
+            self.saved_maps.remove(path)
+            path = os.path.join("save", path)
         if self.current_map:
             self.loaded_maps[self.current_map] = {}
             self.loaded_maps[self.current_map]["floor"] = self.floor.layers.copy()
@@ -55,7 +94,11 @@ class Engine():
             self.loaded_maps[self.current_map]["item_map"] = self.obstacles.item_map.copy()
             self.loaded_maps[self.current_map]["bullets"] = self.obstacles.bullets.copy()
             self.loaded_maps[self.current_map]["triggers"] = self.obstacles.triggers.copy()
-        self.current_map = path
+            self.loaded_maps[self.current_map]["config"] = self.config.copy()
+        if path.startswith("save"):
+            self.current_map = path[5:]
+        else:
+            self.current_map = path
         if path in self.loaded_maps:
             self.floor.layers = self.loaded_maps[path]["floor"].copy()
             self.obstacles.layers = self.loaded_maps[path]["obstacles"].copy()
@@ -64,6 +107,7 @@ class Engine():
             self.obstacles.item_map = self.loaded_maps[path]["item_map"].copy()
             self.obstacles.bullets = self.loaded_maps[path]["bullets"].copy()
             self.obstacles.triggers = self.loaded_maps[path]["triggers"].copy()
+            self.config = self.loaded_maps[path]["config"].copy()
         else:
             self.floor.load_tilemap(os.path.join(path, "floor.py"))
             self.obstacles.load_obstaclemap(os.path.join(path, "obstacles.py"))
@@ -72,18 +116,18 @@ class Engine():
             self.obstacles.load_triggermap(os.path.join(path, "triggers.py"))
             self.obstacles.dead_characters = []
             self.obstacles.bullets = []
-        config = load_module(os.path.join(path, "config.py")).config.copy()
+            self.config = load_module(os.path.join(path, "config.py")).config.copy()
         try:
-            pygame.mixer.music.load(config.get("music", "Search_Art_S31_Undercover_Operative_0.ogg"))
+            pygame.mixer.music.load(self.config.get("music", "Search_Art_S31_Undercover_Operative_0.ogg"))
             pygame.mixer.music.play(-1)
         except:
             pass
         if kwargs.get("spawn_pos", None):
             self.player.grid_pos = kwargs["spawn_pos"].copy()
         else:
-            self.player.grid_pos = config.get("spawn_pos", [0, 0]).copy()
+            self.player.grid_pos = self.config.get("spawn_pos", [0, 0]).copy()
         self.player.reset()
-        mapsize = config.get("level_dimensions", [50, 50])
+        mapsize = self.config.get("level_dimensions", [50, 50])
         self.obstacles.change_size(mapsize)
         self.obstacles.refresh_trigger_quadtree()
         self.obstacles.refresh_grid()
@@ -96,6 +140,11 @@ class Engine():
             current_time = pygame.time.get_ticks()
             self.floor.update(current_time)
             self.obstacles.update(current_time=current_time, event=event)
+        if event and event.type == KEYDOWN:
+            if event.key == K_F3:
+                self.savegame()
+            elif event.key == K_F4:
+                self.load_game()
     def wingame(self):
         self.wongame = True
         pygame.mixer.music.load("wingame.ogg")

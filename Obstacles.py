@@ -85,6 +85,13 @@ class Trigger():
         self.deactivate_after_use = kwargs.get("deactivate_after_use", False)
         self.active = kwargs.get("active", True)
         self.rect = Rect(self.x * WIDTH, self.y * HEIGHT, self.width * WIDTH, self.height * HEIGHT)
+    def get_dict(self):
+        temp = {"x": self.x, "y": self.y, "width": self.width, "height": self.height, "trigger": self.onwalk}
+        if self.deactivate_after_use:
+            temp.update({"deactivate_after_use": self.deactivate_after_use})
+        if not self.active:
+            temp.update({"active": self.active})
+        return temp
     def get_rect(self, rect_type):
         if rect_type == "rect":
             return self.rect
@@ -94,12 +101,18 @@ class Trigger():
             if self.deactivate_after_use:
                 self.active = False
 class BasicObstacle():
-    def __init__(self, grid_pos, width, height, **kwargs):
+    def __init__(self, grid_pos, width, height, obstype, **kwargs):
         self.grid_pos = grid_pos
+        self.type = obstype
         self.rect = Rect(grid_pos[0] * WIDTH, grid_pos[1] * HEIGHT, width * WIDTH, height * HEIGHT)
         self.realrect = Rect(0, 0, 0, 0)
         self.identifier = kwargs.get("id", None)
         self.selectable = False
+    def get_dict(self):
+        temp = {"x": self.x, "y": self.y, "width": self.width, "height": self.height, "type": self.type}
+        if self.identifier:
+            temp.update({"id": self.identifier})
+        return temp
     def update(self, *args):
         pass
     def get_rect(self, rect_type):
@@ -114,6 +127,7 @@ class Obstacle(Tile):
         super().__init__(screen, tile_dict, grid_pos)
         self.borders = kwargs.get("borders", [0, 0, 0, 0])
         self.rect = calculate_rect(grid_pos, self.borders)
+        self.type = kwargs.get("type", None)
         self.realrect = Rect((self.isox, self.isoy), self.region[1])
         self.obstaclemap = kwargs.get("obstaclemap", None)
         self.dialogmanager = kwargs.get("dialogmanager", None)
@@ -128,6 +142,13 @@ class Obstacle(Tile):
         self.selectable = False
         if self.action or self.dialog or self.onclick or self.label:
             self.selectable = True
+    def get_dict(self):
+        temp = {"type": self.type, "x": self.grid_pos[0], "y": self.grid_pos[1], "id": self.identifier, "onclick": self.onclick, "action": self.action, "after_looting": self.after_looting, "label": self.label, "items": self.items}
+        final = {}
+        for key, item in temp.items():
+            if item is not None and item != []:
+                final[key] = item
+        return final
     def click(self):
         if self.onclick:
             call_trigger(self.onclick, self.obstaclemap, self.identifier, self)
@@ -167,6 +188,7 @@ class AnimatedObstacle(AnimatedTile):
     def __init__(self, screen, tile_dict, grid_pos, **kwargs):
         super().__init__(screen, tile_dict, grid_pos)
         self.borders = kwargs.get("borders", [0, 0, 0, 0])
+        self.type = kwargs.get("type", None)
         self.rect = calculate_rect(grid_pos, self.borders)
         self.realrect = Rect(self.iso_positions[0], self.regions[0][1])
         self.obstaclemap = kwargs.get("obstaclemap", None)
@@ -179,8 +201,16 @@ class AnimatedObstacle(AnimatedTile):
         self.label = kwargs.get("label", None)
         self.selected = False
         self.selectable = False
+        self.items = kwargs.get("items", [])
         if self.action or self.dialog or self.onclick or self.label:
             self.selectable = True
+    def get_dict(self):
+        temp = {"type": self.type, "x": self.grid_pos[0], "y": self.grid_pos[1], "id": self.identifier, "onclick": self.onclick, "action": self.action, "after_looting": self.after_looting, "label": self.label, "items": self.items}
+        final = {}
+        for key, item in temp.items():
+            if item is not None and item != []:
+                final[key] = item
+        return final
     def select(self):
         self.selected = True
     def deselect(self):
@@ -219,6 +249,14 @@ class Door(AnimatedObstacle):
         super().__init__(screen, tile_dict, grid_pos, **kwargs)
         self.opening = False
         self.closing = False
+        self.animation = kwargs.get("animation", None)
+    def get_dict(self):
+        temp = {"type": self.type, "x": self.grid_pos[0], "y": self.grid_pos[1], "id": self.identifier, "onclick": self.onclick, "action": self.action, "animation": self.animation, "after_looting": self.after_looting, "label": self.label, "items": self.items}
+        final = {}
+        for key, item in temp.items():
+            if item is not None and item != []:
+                final[key] = item
+        return final
     def open(self):
         self.opening = True
         self.closing = False
@@ -243,12 +281,20 @@ class Item():
         self.offset = kwargs.get("offset", None)
         self.grid_pos = [kwargs.get("x", 0), kwargs.get("y", 0)]
         self.item_info = kwargs["item_info"]
-        self.label = kwargs.get("label")
+        self.label = kwargs.get("label", None)
+        self.identifier = kwargs.get("id", None)
         self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (self.offset[0] + TILEWIDTH // 2)
         self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
         self.realrect = Rect((self.isox, self.isoy), self.image.get_size())
         self.selected = False
         self.selectable = True
+    def get_dict(self):
+        temp = {"type": self.item_info["type"], "x": self.grid_pos[0], "y": self.grid_pos[1]}
+        if self.identifier is not None:
+            temp["id"] = self.identifier
+        if self.label != self.item_info.get("label", None):
+            temp["label"] = self.label
+        return temp
     def select(self):
         self.selected = True
     def deselect(self):
@@ -286,6 +332,19 @@ class Obstacles():
         self.dead_characters = []
         self.item_map = []
         self.change_size([0, 0])
+    def save(self, path, charactermap, item_map, triggers, layers):
+        final_characters = [character.get_dict() for character in charactermap]
+        final_items = [item.get_dict() for item in item_map]
+        final_triggers = [trigger.get_dict() for trigger in triggers]
+        final_obstacles = [[obstacle.get_dict() for obstacle in layers[0]], [obstacle.get_dict() for obstacle in layers[1]]]
+        with open(os.path.join(path, "characters.py"), "w") as f:
+            f.write("characters = " + repr(final_characters))
+        with open(os.path.join(path, "items.py"), "w") as f:
+            f.write("items = " + repr(final_items))
+        with open(os.path.join(path, "triggers.py"), "w") as f:
+            f.write("triggers = " + repr(final_triggers))
+        with open(os.path.join(path, "obstacles.py"), "w") as f:
+            f.write("layers = " + repr(final_obstacles))
     def wingame(self):
         self.engine.wingame()
     def trywingame(self):
@@ -451,7 +510,7 @@ class Obstacles():
                 break
     def create_obstacle(self, info):
         if info["type"] == "RECT":
-            return BasicObstacle((info["x"], info["y"]), info["width"], info["height"])
+            return BasicObstacle((info["x"], info["y"]), info["width"], info["height"], "RECT")
         else:
             tile_dict = self.obstacles[int(info["type"])]
             complete_info = tile_dict.copy()
@@ -460,7 +519,7 @@ class Obstacles():
                 return Obstacle(self.screen, tile_dict["images"], (info["x"], info["y"]), obstaclemap=self, **complete_info)
             else:
                 if tile_dict.get("animation", None) == "door":
-                    return Door(self.screen, tile_dict, (info["x"], info["y"]), obstaclemap=self)
+                    return Door(self.screen, tile_dict, (info["x"], info["y"]), obstaclemap=self, **complete_info)
                 else:
                     return AnimatedObstacle(self.screen, tile_dict, (info["x"], info["y"]), obstaclemap=self, **complete_info)
     def spawn_character(self, **kwargs):
@@ -498,10 +557,11 @@ class Obstacles():
     def create_character(self, info):
         temp = self.characters[info["name"]].copy()
         temp.update(info)
+        temp.update({"orig_info": self.characters[info["name"]].copy()})
         try:
-            temp["weapon"] = self.items[temp["weapon"]]
+            temp["weapon_final"] = self.items[temp["weapon"]]
         except:
-            temp["weapon"] = None
+            temp["weapon_final"] = None
         return AICharacter(self.screen, obstaclemap=self, **temp)
     def update(self, **kwargs):
         current_time = kwargs.get("current_time", pygame.time.get_ticks())
@@ -523,6 +583,7 @@ class Obstacles():
                 character.attack(self.player)
             else:
                 character.movement_temporarily_suppressed = False
+        self.player.update(current_time=current_time, event=event, mouse_pos=mouse_pos)
         if not self.player.dead:
             selected = [x for x in self.realrect_quadtree.collidepoint(mouse_pos) if x.selectable]
             for thing in [j for i in self.layers for j in i] + self.charactermap + self.item_map:
@@ -531,10 +592,10 @@ class Obstacles():
             if selected:
                 self.selected = max(selected, key=lambda x: (x.grid_pos[0], x.grid_pos[1]))
                 self.selected.select()
-                if event and event.type == MOUSEBUTTONDOWN and event.button == 1:
-                    if type(self.selected) == Item:
-                        self.player.click_item(self.selected)
-                    elif type(self.selected) == AICharacter:
+                if type(self.selected) == Item and self.player.pressed:
+                    self.player.click_item(self.selected)
+                elif event and event.type == MOUSEBUTTONDOWN and event.button == 1:
+                    if type(self.selected) == AICharacter:
                         self.player.turn_to(self.selected)
                         self.player.attack(self.selected)
                     else:
@@ -549,7 +610,6 @@ class Obstacles():
                         break
                 else:
                     obstacle.close()
-        self.player.update(current_time=current_time, event=event, mouse_pos=mouse_pos)
         for bullet in list(self.bullets):
             bullet.update()
             if bullet.grid_pos[0] < 0 or bullet.grid_pos[0] > self.mapsize[0] or bullet.grid_pos[1] < 0 or bullet.grid_pos[1] > self.mapsize[1]:

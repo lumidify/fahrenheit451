@@ -58,6 +58,22 @@ class Montag(Character):
         if new_path:
             self.walk_to(new_path)
         self.after_walk = lambda: self.pickup_item(item)
+    def get_inventory(self):
+        temp = {}
+        temp["weapon"] = self.inventory["weapon"]
+        if temp["weapon"]:
+            temp["weapon"] = temp["weapon"]["type"]
+        temp["books"] = []
+        for book in self.inventory["books"]:
+            temp["books"].append(book["type"])
+        return temp
+    def load_inventory(self, inventory):
+        self.inventory = {"weapon": None, "books": []}
+        if inventory["weapon"]:
+            self.inventory["weapon"] = self.obstaclemap.items[inventory["weapon"]]
+            self.attack_time = self.inventory["weapon"]["weapon"]["attack_time"] * 1000
+        for book in inventory["books"]:
+            self.inventory["books"].append(self.obstaclemap.items[book])
     def has_book(self, item_id):
         return item_id in [item["type"] for item in self.inventory["books"]]
     def pickup_item(self, item):
@@ -101,7 +117,7 @@ class Montag(Character):
         if not self.dead and self.state != "death":
             time_change = current_time - self.current_time
             self.health_time_passed += time_change
-            if self.health_time_passed >= 10000 and self.health < 100:
+            if self.health_time_passed >= 5000 and self.health < 100:
                 self.health += 1
                 self.health_time_passed = 0
             if event:
@@ -112,6 +128,7 @@ class Montag(Character):
                 elif event.type == KEYDOWN and event.key == K_SPACE:
                     self.attack()
             if self.pressed and mouse_pos != self.last_mouse_pos and self.state != "attack":
+                self.after_walk = None
                 self.last_mouse_pos = mouse_pos
                 mouse_pos = [mouse_pos[0] - TILEWIDTH // 2, mouse_pos[1]]
                 x = ((mouse_pos[0] / (TILEWIDTH // 2)) + (mouse_pos[1] / (TILEHEIGHT // 2))) / 2
