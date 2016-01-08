@@ -454,10 +454,10 @@ class Obstacles():
             else:
                 print("WARNING: Couldn't delete obstacle '%s'." %obs)
         else:
-            obs = self.find_obs_id(obs)
+            obs = self.find_obs_id(identifier)
             if obs:
-                refresh_rect = obs.rect
-                self.layers[obs[1]].remove(obs[2])
+                refresh_rect = obs[0].rect
+                self.layers[obs[1]].pop(obs[2])
             else:
                 print("WARNING: Couldn't delete obstacle '%s'." %obs)
         self.grid.obstacles = [j for i in self.layers for j in i]

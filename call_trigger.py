@@ -10,7 +10,7 @@ def call_trigger(trigger, obstaclemap, identifier, obstacle):
     elif trigger[0] == "DELETE":
         to_delete = obstacle if trigger[2] == "self" else None
         if trigger[1] == "obstacle":
-            obstaclemap.delete_obs(obstacle=to_delete, identifier=identifier)
+            obstaclemap.delete_obs(obstacle=to_delete, identifier=trigger[2])
         elif trigger[1] == "character":
             obstaclemap.delete_character(character=to_delete, identifier=identifier)
         elif trigger[1] == "trigger":
@@ -37,7 +37,7 @@ def call_trigger(trigger, obstaclemap, identifier, obstacle):
     elif trigger[0] == "DEACTIVATE":
         if trigger[1] == "trigger":
             obstaclemap.deactivate_trigger(identifier)
-    elif trigger[0] == "DEACTIVATE":
+    elif trigger[0] == "ACTIVATE":
         if trigger[1] == "trigger":
             obstaclemap.activate_trigger(identifier)
     elif trigger[0] == "CHANGEMAP":
