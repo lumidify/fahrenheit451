@@ -34,7 +34,7 @@ class Engine():
         self.tiles, self.obstacles, self.characters, self.items, self.bullets = load_tiles()
         self.floor = Floor(self.screen, self.tiles)
         self.obstacles = Obstacles(self.screen, self.obstacles, self.characters, self.items, self.bullets, self)
-        temp = self.obstacles.characters["GUA"].copy()
+        temp = self.obstacles.characters["GUB"].copy()
         temp["weapon"] = None
         self.player = Montag(self.screen, x=0, y=0, obstaclemap=self.obstacles, **temp)
         self.obstacles.player = self.player
