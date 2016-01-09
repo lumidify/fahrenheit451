@@ -58,7 +58,7 @@ class Character():
         if self.weapon:
             self.attack_time = self.weapon["weapon"]["attack_time"] * 1000
         self.attack_time_passed = 0
-    def calc_dir_vel(self, magnitude, deltax=None, deltay=None):
+    def calc_dir_vel(self, deltax=None, deltay=None):
         if not deltax: 
             deltax = self.walk_to_points[0][0] - self.grid_pos[0]
         if not deltay:
@@ -69,7 +69,7 @@ class Character():
             self.direction = self.direction_angles[round(math.degrees(self.perfect_angle) / 45) * 45]
             self.vel[0] = math.cos(self.perfect_angle)
             self.vel[1] = -math.sin(self.perfect_angle)
-            self.adjusted_vel = [self.vel[0] * (self.adjusted_speed * magnitude), self.vel[1] * (self.adjusted_speed * magnitude)]
+            self.adjusted_vel = [self.vel[0] * self.adjusted_speed, self.vel[1] * self.adjusted_speed]
     def get_dict(self):
         temp = {"x": self.grid_pos[0], "y": self.grid_pos[1], "name": self.type}
         if self.direction != "N":
@@ -99,16 +99,16 @@ class Character():
         self.state = "walk"
         deltax = self.walk_to_points[0][0] - self.grid_pos[0]
         deltay = self.grid_pos[1] - self.walk_to_points[0][1]
-        self.calc_dir_vel(magnitude, deltax, deltay)
+        self.calc_dir_vel(deltax, deltay)
         next_deltax = self.walk_to_points[0][0] - (self.grid_pos[0] + self.adjusted_vel[0])
         next_deltay = (self.grid_pos[1] + self.adjusted_vel[1]) - self.walk_to_points[0][1]
         if abs(deltax) <= abs(next_deltax) and abs(deltay) <= abs(next_deltay):
             self.walk_to_points.pop(0)
             if self.walk_to_points:
-                self.calc_dir_vel(magnitude)
+                self.calc_dir_vel()
         if self.walk_to_points:
-            self.grid_pos[0] += self.adjusted_vel[0]
-            self.grid_pos[1] += self.adjusted_vel[1]
+            self.grid_pos[0] += self.adjusted_vel[0] * magnitude
+            self.grid_pos[1] += self.adjusted_vel[1] * magnitude
         else:
             self.state = "stand"
             self.frame = 0

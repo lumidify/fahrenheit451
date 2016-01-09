@@ -578,7 +578,7 @@ class Obstacles():
             if character.dead:
                 self.dead_characters.append(character)
                 self.charactermap.remove(character)
-            elif not self.player.dead and self.player.state != "death" and not character.dead and character.state != "death" and math.sqrt((self.player.grid_pos[0] - character.grid_pos[0]) ** 2 + (self.player.grid_pos[1] - character.grid_pos[1]) ** 2) <= character.aggression_distance:
+            elif not self.player.dead and self.player.state != "death" and not character.dead and character.state != "death" and not self.grid.quadtree.collideline(((character.grid_pos[0] * WIDTH, character.grid_pos[1] * HEIGHT), (self.player.grid_pos[0] * WIDTH, self.player.grid_pos[1] * HEIGHT))) and math.sqrt((self.player.grid_pos[0] - character.grid_pos[0]) ** 2 + (self.player.grid_pos[1] - character.grid_pos[1]) ** 2) <= character.aggression_distance:
                 character.turn_to(self.player)
                 character.attack(self.player)
             else:
@@ -595,7 +595,7 @@ class Obstacles():
                 if type(self.selected) == Item and self.player.pressed:
                     self.player.click_item(self.selected)
                 elif event and event.type == MOUSEBUTTONDOWN and event.button == 1:
-                    if type(self.selected) == AICharacter:
+                    if type(self.selected) == AICharacter and not self.grid.quadtree.collideline(((self.selected.grid_pos[0] * WIDTH, self.selected.grid_pos[1] * HEIGHT), (self.player.grid_pos[0] * WIDTH, self.player.grid_pos[1] * HEIGHT))):
                         self.player.turn_to(self.selected)
                         self.player.attack(self.selected)
                     else:
