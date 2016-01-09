@@ -685,11 +685,10 @@ class Obstacles():
                         if key == "health":
                             value = int(value)
                     if key in ["x", "y", "width", "height"]:
-                        if value:
-                            try:
-                                final_dict[key] = float(value)
-                            except:
-                                pass
+                        try:
+                            final_dict[key] = float(value)
+                        except:
+                            pass
                     elif key == "direction":
                         if value in ["NW", "N", "NE", "E", "W", "SW", "SE", "S"]:
                             final_dict[key] = value

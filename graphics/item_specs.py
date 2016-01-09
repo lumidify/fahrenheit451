@@ -867,6 +867,30 @@ items = [
 },
 
 {
+    "type": "EnemyExterminator",
+    "label": "Exterminator",
+    "slot": "weapon",
+    "weapon": {
+        "damage": 40,
+        "attack_time": 1.0000000,
+        "reloading_time": 4.500000,
+        "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
+        "melee": False,
+        "bullet": {"type": "exterminator", "speed": 4.0000000, "lifetime": -1.000000},
+        "ammunition": {"type": "2 mm Exterminator Ammunition", "clip": 2},
+        "two_hand": True,
+        "motion_class": "2hranged",
+    },
+    "durability": "40:50",
+    "base_price": 1000,
+    "inventory": {"x": 2, "y": 2, "image": "weapons/exterminator_simple/inv_image.png" },
+    "drop": {"class": "8:9", "sound": "Item_Range_Weapon_Put_Sound_0.ogg"},
+    "description": "While this weapon is capable of firing really powerful shots, beware of the exceptionally long reloading times. (Don't get swarmed by enemies with this weapon unless you have powerful armor!)",
+    "rotation_series": "weapons/exterminator_simple",
+    "tux_part": "iso_exterminator",
+},
+
+{
     "type": "The Super Exterminator!!!",
     "label": "The Super Exterminator!!!",
     "slot": "weapon",
