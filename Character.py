@@ -11,7 +11,7 @@ TILEHEIGHT = 64
 FONT = pygame.font.Font("Lumidify_Casual.ttf", 20)
 BULLET_SOUND = pygame.mixer.Sound("Single_Pulse.ogg")
 SWORD_SOUND = pygame.mixer.Sound("Sword.ogg")
-BULLET_SOUND.set_volume(0.1)
+BULLET_SOUND.set_volume(0.2)
 SWORD_SOUND.set_volume(0.5)
 
 class Character():
