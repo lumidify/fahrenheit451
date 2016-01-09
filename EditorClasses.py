@@ -337,7 +337,7 @@ class Character():
         temp = {"x": self.x, "y": self.y, "name": self.type}
         if self.direction != "N":
             temp["direction"] = self.direction
-        if self.health != 10:
+        if self.health != self.orig_info.get("health", 10):
             temp["health"] = self.health
         if self.aggression_distance != self.orig_info["aggression_distance"]:
             temp["aggression_distance"] = self.aggression_distance
@@ -682,6 +682,8 @@ class Obstacles():
                                 value = float(value)
                         except:
                             pass
+                        if key == "health":
+                            value = int(value)
                     if key in ["x", "y", "width", "height"]:
                         if value:
                             final_dict[key] = value

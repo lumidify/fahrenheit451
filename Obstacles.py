@@ -578,13 +578,13 @@ class Obstacles():
             if character.dead:
                 self.dead_characters.append(character)
                 self.charactermap.remove(character)
-            elif not self.player.dead and self.player.state != "death" and math.sqrt((self.player.grid_pos[0] - character.grid_pos[0]) ** 2 + (self.player.grid_pos[1] - character.grid_pos[1]) ** 2) <= character.aggression_distance:
+            elif not self.player.dead and self.player.state != "death" and not character.dead and character.state != "death" and math.sqrt((self.player.grid_pos[0] - character.grid_pos[0]) ** 2 + (self.player.grid_pos[1] - character.grid_pos[1]) ** 2) <= character.aggression_distance:
                 character.turn_to(self.player)
                 character.attack(self.player)
             else:
                 character.movement_temporarily_suppressed = False
         self.player.update(current_time=current_time, event=event, mouse_pos=mouse_pos)
-        if not self.player.dead:
+        if not self.player.dead and self.player.state != "death":
             selected = [x for x in self.realrect_quadtree.collidepoint(mouse_pos) if x.selectable]
             for thing in [j for i in self.layers for j in i] + self.charactermap + self.item_map:
                 if thing.selectable:

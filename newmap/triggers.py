@@ -1,1 +1,1 @@
-triggers = [{'y': 0.9296875, 'trigger': ['REPLACE', 'obstacle', 'bob', '15'], 'active': False, 'height': 1.0, 'width': 1.0, 'x': 3.0078125, 'deactivate_after_use': True}, {'y': 0.984375, 'trigger': ['ACTIVATE', 'trigger', 'hello'], 'height': 1.0, 'width': 1.0, 'x': 5.015625, 'deactivate_after_use': True}]
+triggers = []
