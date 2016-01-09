@@ -133,6 +133,7 @@ class Montag(Character):
                 mouse_pos = [mouse_pos[0] - TILEWIDTH // 2, mouse_pos[1]]
                 x = ((mouse_pos[0] / (TILEWIDTH // 2)) + (mouse_pos[1] / (TILEHEIGHT // 2))) / 2
                 y = (((mouse_pos[0] / (TILEWIDTH // 2)) - mouse_pos[1] / (TILEHEIGHT // 2))) / -2
+                self.marker_pos = (x, y)
                 new_path = self.pathfinding_grid.find_path(tuple(self.grid_pos), (x, y))
                 if new_path:
                     self.walking = True
@@ -146,7 +147,7 @@ class Montag(Character):
     def draw(self, screen_offset):
         self.last_screen_offset = screen_offset
         if not self.dead and self.walk_to_points:
-            isox = (self.walk_to_points[-1][0] - self.walk_to_points[-1][1]) * (TILEWIDTH // 2) + 49
-            isoy = (self.walk_to_points[-1][0] + self.walk_to_points[-1][1]) * (TILEHEIGHT // 2) - 7
+            isox = (self.marker_pos[0] - self.marker_pos[1]) * (TILEWIDTH // 2) + 49
+            isoy = (self.marker_pos[0] + self.marker_pos[1]) * (TILEHEIGHT // 2) - 7
             self.screen.blit(self.target_image, (isox + screen_offset[0], isoy + screen_offset[1]))
         super().draw(screen_offset)

@@ -216,7 +216,7 @@ class Obstacle():
         temp = {"type": self.type, "x": self.x, "y": self.y, "id": self.identifier, "onclick": self.onclick, "action": self.action, "animation": self.animation, "after_looting": self.after_looting, "label": self.label, "items": self.items}
         final = {}
         for key, item in temp.items():
-            if item is not None:
+            if item is not None and item != [""] and item != "" and item != []:
                 final[key] = item
         return final
     def get_rect(self, rect_type):
@@ -686,13 +686,17 @@ class Obstacles():
                             value = int(value)
                     if key in ["x", "y", "width", "height"]:
                         if value:
-                            final_dict[key] = value
+                            try:
+                                final_dict[key] = float(value)
+                            except:
+                                pass
                     elif key == "direction":
                         if value in ["NW", "N", "NE", "E", "W", "SW", "SE", "S"]:
                             final_dict[key] = value
                     elif key == "items":
-                        value = [x.strip() for x in value.split(";")]
-                        final_dict[key] = value
+                        if value:
+                            value = [x.strip() for x in value.split(";")]
+                            final_dict[key] = value
                     elif key == "waypoints":
                         try:
                             if value:

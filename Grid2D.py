@@ -70,7 +70,9 @@ class Grid2D():
             closed_list = []
             open_heap = []
             heappush(open_heap, (f_score[start], start))
+            counter = 0
             while open_heap:
+                counter += 1
                 current = heappop(open_heap)[1]
                 closed_list.append(current)
                 if current == target:
@@ -100,6 +102,9 @@ class Grid2D():
                             g_score[neighbor] = potential_g
                             parents[neighbor] = current
                             heappush(open_heap, (f_score[neighbor], neighbor))
+                #Just to prevent huge lags - it won't find the path, but at least it will still be playable
+                if counter >= 1000:
+                    return None
         return None
     def calculate_clearance(self, rect=None):
         if rect:
