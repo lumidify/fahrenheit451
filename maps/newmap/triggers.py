@@ -1,1 +1,1 @@
-triggers = [{'height': 1.0, 'x': 18.9765625, 'y': 22.9609375, 'width': 1.0, 'trigger': ['TRYWINGAME']}]
+triggers = [{'x': 18.9765625, 'y': 22.9609375, 'height': 1.0, 'trigger': ['TRYWINGAME'], 'width': 1.0}]

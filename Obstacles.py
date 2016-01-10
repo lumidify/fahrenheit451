@@ -140,7 +140,7 @@ class Obstacle(Tile):
         self.items = kwargs.get("items", [])
         self.selected = False
         self.selectable = False
-        if self.action or self.dialog or self.onclick or self.label:
+        if self.action or self.dialog or self.onclick or self.label or self.items:
             self.selectable = True
     def get_dict(self):
         temp = {"type": self.type, "x": self.grid_pos[0], "y": self.grid_pos[1], "id": self.identifier, "onclick": self.onclick, "action": self.action, "after_looting": self.after_looting, "label": self.label, "items": self.items}
@@ -156,7 +156,7 @@ class Obstacle(Tile):
             self.dialogmanager.start_dialog(self.dialog)
         if self.action == "chest":
             for item in self.items:
-                self.obstaclemap.add_item({"x": self.grid_pos[0] + 0.5, "y": self.grid_pos[1], "type": item})
+                self.obstaclemap.add_item({"x": self.grid_pos[0] + self.rect.width / WIDTH / 2 + 0.1, "y": self.grid_pos[1], "type": item})
             self.items = []
             if self.after_looting:
                 self.obstaclemap.replace_obs(obstacle=self, new=self.after_looting)
@@ -202,7 +202,7 @@ class AnimatedObstacle(AnimatedTile):
         self.selected = False
         self.selectable = False
         self.items = kwargs.get("items", [])
-        if self.action or self.dialog or self.onclick or self.label:
+        if self.action or self.dialog or self.onclick or self.label or self.items:
             self.selectable = True
     def get_dict(self):
         temp = {"type": self.type, "x": self.grid_pos[0], "y": self.grid_pos[1], "id": self.identifier, "onclick": self.onclick, "action": self.action, "after_looting": self.after_looting, "label": self.label, "items": self.items}
@@ -222,7 +222,7 @@ class AnimatedObstacle(AnimatedTile):
             self.dialogmap.start_dialog(self.dialog)
         if self.action == "chest":
             for item in self.items:
-                self.obstaclemap.add_item({"x": self.grid_pos[0] + 0.5, "y": self.grid_pos[1], "type": item})
+                self.obstaclemap.add_item({"x": self.grid_pos[0] + self.rect.width / WIDTH / 2 + 0.1, "y": self.grid_pos[1], "type": item})
             self.obstaclemap.replace_obs(obstacle=self, new=self.after_looting)
         if self.action == "barrel":
             for item in self.items:
@@ -367,6 +367,13 @@ class Obstacles():
             pass
     def changemap(self, new_map, spawn_pos=None):
         self.engine.load_map(new_map, spawn_pos=spawn_pos)
+    def trychangemap(self, new_map, book, spawn_pos=None):
+        try:
+            spawn_pos = [float(x) for x in spawn_pos]
+        except:
+            pass
+        if self.player.has_book(book):
+            self.engine.load_map(new_map, spawn_pos=spawn_pos)
     def add_bullet(self, info):
         temp = self.bullet_archetypes[info["name"]].copy()
         temp.update(info)

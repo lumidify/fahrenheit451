@@ -617,7 +617,7 @@ class Obstacles():
                     self.widgets[option] = {"widget": ttk.Checkbutton(self.properties_frame, text=option, variable=variable), "variable": variable}
                     self.widgets[option]["widget"].grid(row=index, column=1, sticky="w")
                 elif option in ["onclick", "trigger", "ondeath"]:
-                    self.widgets[option] = [ttk.Combobox(self.properties_frame, values=("REPLACE", "DELETE", "ADD", "KILL", "KILLALL", "SPAWN", "OPEN", "CLOSE", "DEACTIVATE", "ACTIVATE", "WINGAME", "TRYWINGAME", "CHANGEMAP")), ttk.Combobox(self.properties_frame, values=("obstacle", "character", "item", "trigger")), ttk.Entry(self.properties_frame), ttk.Entry(self.properties_frame), ttk.Entry(self.properties_frame)]
+                    self.widgets[option] = [ttk.Combobox(self.properties_frame, values=("REPLACE", "DELETE", "ADD", "KILL", "KILLALL", "SPAWN", "OPEN", "CLOSE", "DEACTIVATE", "ACTIVATE", "WINGAME", "TRYWINGAME", "CHANGEMAP", "TRYCHANGEMAP")), ttk.Combobox(self.properties_frame, values=("obstacle", "character", "item", "trigger")), ttk.Entry(self.properties_frame), ttk.Entry(self.properties_frame), ttk.Entry(self.properties_frame)]
                     for widget_index, widget in enumerate(self.widgets[option]):
                         try:
                             if type(widget) == ttk.Combobox:
