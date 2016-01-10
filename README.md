@@ -5,6 +5,7 @@ One year after the city was destroyed, Montag was an avid member of the society 
 ##Controls
 * F3: Save
 * F4: Load
+* F11: Show/Hide FPS Counter
 * Space: Attack
 * Click: Walk, pick up items, attack
 
