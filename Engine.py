@@ -48,6 +48,7 @@ class Engine():
         self.current_map = ""
         self.wongame = False
         self.lostgame = False
+        self.show_fps = True
     def savegame(self):
         if not os.path.isdir("save"):
             os.mkdir("save")
@@ -148,8 +149,7 @@ class Engine():
             elif event.key == K_F4:
                 self.load_game()
             elif event.key == K_F11:
-                clock.tick()
-                print("fps:", clock.get_fps())
+                self.show_fps = not self.show_fps
     def wingame(self):
         self.wongame = True
         pygame.mixer.music.load("wingame.ogg")
@@ -166,6 +166,8 @@ class Engine():
         elif self.lostgame:
             screen.blit(FONT.render("Shame be upon you! You lost!", True, (255, 255, 255)), (0, 0))
         self.screen.blit(FONT.render("Health: " + str(self.player.health), True, (255, 255, 255)), (self.screen.get_size()[0] - 200, 0))
+        if self.show_fps:
+            self.screen.blit(FONT.render("FPS: " + str(round(clock.get_fps(), 2)), True, (255, 255, 255)), (self.screen.get_size()[0] - 400, 0))
 if __name__ == "__main__":
     pygame.init()
     clock.tick()
