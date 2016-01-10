@@ -496,6 +496,7 @@ class Obstacles():
             self.charactermap.append(Character(self.screen, x=kwargs.get("x", 0), y=kwargs.get("y", 0), name=kwargs["name"]))
     def load_obstaclemap(self, path):
         self.layers = []
+        self.rect_obstacles = []
         temp = load_module(path)
         for layer in temp.layers:
             self.layers.append([])
