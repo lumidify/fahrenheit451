@@ -348,7 +348,7 @@ class Obstacles():
     def wingame(self):
         self.engine.wingame()
     def trywingame(self):
-        if self.player.has_book("Book 1"):
+        if self.player.has_book("Book 1") and self.player.has_book("Book 2") and self.player.has_book("Book 3"):
             self.engine.wingame()
     def gen_real_rect(self, mapsize):
         real_height = mapsize[1] * (ISOHEIGHT // 2) + mapsize[0] * (ISOHEIGHT // 2)
