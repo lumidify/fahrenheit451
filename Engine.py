@@ -180,7 +180,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         engine.load_map(sys.argv[1])
     else:
-        engine.load_map("maps/TheMap")
+        engine.load_map("maps/MapBook1_")
     while True:
         screen.fill((0, 0, 0))
         clock.tick(60)
