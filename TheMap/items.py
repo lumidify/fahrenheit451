@@ -1,1 +1,0 @@
-items = [{'y': 10, 'x': 10, 'type': 'Antique Greatsword'}, {'id': '', 'y': 5.9375, 'x': 2.0, 'type': 'Book 1'}]

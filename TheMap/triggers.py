@@ -1,1 +1,0 @@
-triggers = [{'trigger': ['CHANGEMAP', 'TheMap1', 0, 0], 'x': 11, 'height': 1, 'width': 1, 'y': 11}, {'trigger': ['TRYWINGAME'], 'x': -0.017187499999999994, 'height': 3.0, 'width': 3.0, 'y': 9.0}]
