@@ -1,0 +1,1 @@
+characters = [{'name': 'GUA', 'ondeath': [], 'id': '', 'y': 7.3515625, 'x': 22.2734375, 'random_walk_area': [19.0, 3.0, 10.0, 10.0]}, {'name': '883', 'ondeath': ['DELETE'], 'id': '', 'y': 26.953125, 'x': 22.046875}, {'name': '123', 'ondeath': [], 'id': '', 'y': 28.09375, 'x': 25.125, 'aggression_distance': 2.0}]
