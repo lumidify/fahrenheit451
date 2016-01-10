@@ -682,7 +682,7 @@ class Obstacles():
                                 value = float(value)
                         except:
                             pass
-                        if key == "health":
+                        if key == "health" and value:
                             value = int(value)
                     if key in ["x", "y", "width", "height"]:
                         try:
