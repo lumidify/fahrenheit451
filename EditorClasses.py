@@ -676,14 +676,12 @@ class Obstacles():
                     else:
                         value = item.get()
                         try:
-                            if key == "after_looting":
+                            if key in ["after_looting", "health"]:
                                 value = int(value)
                             else:
                                 value = float(value)
                         except:
                             pass
-                        if key == "health" and value:
-                            value = int(value)
                     if key in ["x", "y", "width", "height"]:
                         try:
                             final_dict[key] = float(value)
