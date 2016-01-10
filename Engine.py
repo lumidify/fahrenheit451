@@ -17,6 +17,8 @@ TILEWIDTH = 128
 TILEHEIGHT = 64
 FLOORPATH = os.path.join("graphics", "floor_tiles")
 FONT = pygame.font.Font("Lumidify_Casual.ttf", 50)
+FONT_SMALL = pygame.font.Font("SourceCodePro.ttf", 14)
+clock = pygame.time.Clock()
 
 def load_module(path):
     spec = importlib.util.spec_from_file_location("module.name", path)
@@ -29,7 +31,7 @@ class Engine():
         print("Initializing Lumidify Isometric Engine (LIE) Version 1.0 ...")
         self.screen = screen
         self.screen.blit(FONT.render("Loading...", True, (255, 255, 255)), (0, 0))
-        self.screen.blit(FONT.render("Patience is a virtue.", True, (255, 255, 255)), (0, 40))
+        self.screen.blit(FONT.render("Remember - patience is a virtue.", True, (255, 255, 255)), (0, 40))
         pygame.display.update()
         self.tiles, self.obstacles, self.characters, self.items, self.bullets = load_tiles()
         self.floor = Floor(self.screen, self.tiles)
@@ -145,6 +147,9 @@ class Engine():
                 self.savegame()
             elif event.key == K_F4:
                 self.load_game()
+            elif event.key == K_F11:
+                clock.tick()
+                print("fps:", clock.get_fps())
     def wingame(self):
         self.wongame = True
         pygame.mixer.music.load("wingame.ogg")
@@ -163,16 +168,19 @@ class Engine():
         self.screen.blit(FONT.render("Health: " + str(self.player.health), True, (255, 255, 255)), (self.screen.get_size()[0] - 200, 0))
 if __name__ == "__main__":
     pygame.init()
+    clock.tick()
+    # fps = clock.get_fps()
+    # str_fps = str(round(fps,9))
     screen_info = pygame.display.Info()
     screen_size = [screen_info.current_w, screen_info.current_h]
     screen = pygame.display.set_mode(screen_size, RESIZABLE)
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Fahrenheit 451")
+    pygame.display.set_caption("Fahrenheit 451") # - FPS: " + str_fps)
     engine = Engine(screen)
     if len(sys.argv) > 1:
         engine.load_map(sys.argv[1])
     else:
-        engine.load_map("TheMap")
+        engine.load_map("maps/TheMap")
     while True:
         screen.fill((0, 0, 0))
         clock.tick(60)
