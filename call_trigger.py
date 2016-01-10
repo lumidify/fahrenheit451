@@ -45,6 +45,11 @@ def call_trigger(trigger, obstaclemap, identifier, obstacle):
             obstaclemap.changemap(trigger[1], [trigger[2], trigger[3]])
         else:
             obstaclemap.changemap(trigger[1])
+    elif trigger[0] == "TRYCHANGEMAP":
+        if len(trigger) > 3:
+            obstaclemap.trychangemap(trigger[1], trigger[2], [trigger[3], trigger[4]])
+        else:
+            obstaclemap.trychangemap(trigger[1], trigger[2])
     elif trigger[0] == "KILL":
         if trigger[1] == "character":
             obstaclemap.kill(trigger[2])
