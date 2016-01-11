@@ -84,6 +84,10 @@ class Montag(Character):
                 self.obstaclemap.add_item(temp)
             self.inventory["weapon"] = item.item_info
             self.attack_time = item.item_info["weapon"]["attack_time"] * 1000
+        elif item.item_info["type"] == "Health Pill":
+            self.health += 15
+            if self.health > 100:
+                self.health = 100
         else:
             self.inventory["books"].append(item.item_info)
         self.obstaclemap.delete_item(item)

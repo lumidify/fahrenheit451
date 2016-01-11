@@ -1,1 +1,1 @@
-items = []
+items = [{'x': 6.0859375, 'id': '', 'y': 7.4765625, 'type': 'Health Pill'}]

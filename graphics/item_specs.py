@@ -940,7 +940,7 @@ items = [
 
 {
     "type": "Book 1",
-    "label": "Source Book of Emergency Shutdown",
+    "label": "Animal Farm",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Emergency shutdown"},
     "base_price": 500,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
@@ -951,7 +951,7 @@ items = [
 
 {
     "type": "Book 2",
-    "label": "Source Book of Check System Integrity",
+    "label": "1984",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Check system integrity"},
     "base_price": 250,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_white.png" },
@@ -962,7 +962,7 @@ items = [
 
 {
     "type": "Book 3",
-    "label": "Source Book of Sanctuary",
+    "label": "Fahrenheit 451",
     "right_use": {"tooltip": "Permanently acquire/enhance this program", "add_skill": "Sanctuary"},
     "base_price": 450,
     "inventory": {"x": 2, "y": 2, "image": "spellbook/inv_image_green.png" },
@@ -1415,5 +1415,16 @@ items = [
     "description": "While this axe was made for splitting wood, with some luck it can damage vital parts of a droid as well.",
     "rotation_series": "weapons/small_axe",
     "tux_part": "iso_small_axe",
-}
+},
+
+{
+    "type": "Health Pill",
+    "label": "Health Pill",
+    "right_use": {"tooltip": "Permanently gain +1 strength", "busy": {"type": "pill", "duration": 1}},
+    "base_price": 250,
+    "inventory": {"x": 1, "y": 1,"stackable": True, "image": "pills_potions/strength/inv_image.png" },
+    "drop": {"class": "2:9", "sound": "Item_Drop_Sound_4.ogg"},
+    "description": "These pills permanently raise strength within a person. They work on a nano-technological basis. Consult your physician, the receipt or pharmacy experts for details on intended effects, possible interactions and side effects of this drug.",
+    "rotation_series": "health_pill",
+},
 ]
