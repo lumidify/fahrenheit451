@@ -1,1 +1,0 @@
-characters = [{'ondeath': [], 'x': 22.2734375, 'health': 60, 'name': 'GUA', 'id': '', 'y': 7.3515625, 'random_walk_area': [19.0, 3.0, 10.0, 10.0]}, {'ondeath': ['DELETE'], 'x': 21.6875, 'health': 60, 'name': '883', 'id': '', 'y': 26.96875}, {'aggression_distance': 2.0, 'ondeath': ['DELETE'], 'x': 25.125, 'name': '123', 'id': '', 'y': 28.09375}]

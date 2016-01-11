@@ -1,1 +1,1 @@
-config = {'spawn_pos': [2.0, 4.0], 'music': '', 'level_dimensions': [30, 30]}
+config = {'spawn_pos': [30.0, 40.0], 'music': 'Fantasy.ogg', 'level_dimensions': [50, 50]}
