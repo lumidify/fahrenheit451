@@ -10,4 +10,6 @@ One year after the city was destroyed, Montag was an avid member of the society 
 * Click: Walk, pick up items, attack
 
 ##Notes
-* This is still in a very early stage, so expect quite a few bugs.
+* This is still in a very early stage (think pre-pre-alpha), so expect quite a few bugs.
+* This game uses the GPL v2.0 License. A list of credits can be found in CREDITS.txt.
+* This game was co-developed by Lumidify and Gryffyn.
