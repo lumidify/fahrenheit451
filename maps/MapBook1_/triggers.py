@@ -1,1 +1,0 @@
-triggers = [{'height': 1.0, 'deactivate_after_use': True, 'x': 42.9375, 'width': 1.0, 'y': 42.9375, 'trigger': ['TRYCHANGEMAP', 'maps/MapBook2', 'Book 1']}]

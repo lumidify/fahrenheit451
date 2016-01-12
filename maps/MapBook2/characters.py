@@ -1,1 +1,1 @@
-characters = [{'y': 1.2890625, 'ondeath': [], 'health': 40, 'x': 7.2109375, 'name': '614', 'id': ''}, {'y': 0.8046875, 'ondeath': [], 'direction': 'S', 'x': 7.7265625, 'name': '614', 'id': ''}]
+characters = [{'y': 1.2890625, 'ondeath': [], 'name': '614', 'id': '', 'x': 7.2109375, 'health': 40}, {'y': 0.8046875, 'ondeath': [], 'name': '614', 'id': '', 'x': 7.7265625, 'direction': 'S'}]
