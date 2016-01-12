@@ -4,6 +4,7 @@ import math
 import pygame
 from Engine import *
 from pygame.locals import *
+from call_trigger import *
 from Character import *
 
 TILEWIDTH = 128
@@ -91,6 +92,8 @@ class Montag(Character):
         else:
             self.inventory["books"].append(item.item_info)
         self.obstaclemap.delete_item(item)
+        if item.onpickup:
+            call_trigger(item.onpickup, self.obstaclemap, self.identifier, self)
     def attack(self, character=None):
         self.walk_to_points = []
         weapon = self.inventory["weapon"]
@@ -149,7 +152,6 @@ class Montag(Character):
         super().update(current_time)
     def draw(self, screen_offset):
         self.last_screen_offset = screen_offset
-        print(self.grid_pos)
         if not self.dead and self.walk_to_points:
             isox = (self.marker_pos[0] - self.marker_pos[1]) * (TILEWIDTH // 2) - 16
             isoy = (self.marker_pos[0] + self.marker_pos[1]) * (TILEHEIGHT // 2) - 8

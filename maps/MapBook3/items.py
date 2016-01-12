@@ -1,1 +1,1 @@
-items = []
+items = [{'onpickup': ['REPLACE', 'obstacle', 'teleport_door', '6'], 'y': 5.375, 'x': 3.65625, 'type': 'Book 2'}]

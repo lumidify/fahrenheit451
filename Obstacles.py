@@ -125,6 +125,8 @@ class BasicObstacle():
 class Obstacle(Tile):
     def __init__(self, screen, tile_dict, grid_pos, **kwargs):
         super().__init__(screen, tile_dict, grid_pos)
+        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + self.offset[0]
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
         self.borders = kwargs.get("borders", [0, 0, 0, 0])
         self.rect = calculate_rect(grid_pos, self.borders)
         self.type = kwargs.get("type", None)
@@ -187,6 +189,11 @@ class Obstacle(Tile):
 class AnimatedObstacle(AnimatedTile):
     def __init__(self, screen, tile_dict, grid_pos, **kwargs):
         super().__init__(screen, tile_dict, grid_pos)
+        self.iso_positions = []
+        for offset in self.offsets:
+            isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + offset[0]
+            isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + offset[1]
+            self.iso_positions.append([isox, isoy])
         self.borders = kwargs.get("borders", [0, 0, 0, 0])
         self.type = kwargs.get("type", None)
         self.rect = calculate_rect(grid_pos, self.borders)
@@ -283,8 +290,9 @@ class Item():
         self.item_info = kwargs["item_info"]
         self.label = kwargs.get("label", None)
         self.identifier = kwargs.get("id", None)
+        self.onpickup = kwargs.get("onpickup", None)
         self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + self.offset[0]
-        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1] + TILEHEIGHT // 2
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
         self.realrect = Rect((self.isox, self.isoy), self.image.get_size())
         self.selected = False
         self.selectable = True
@@ -372,6 +380,7 @@ class Obstacles():
             spawn_pos = [float(x) for x in spawn_pos]
         except:
             pass
+        print(book)
         if self.player.has_book(book):
             self.engine.load_map(new_map, spawn_pos=spawn_pos)
     def add_bullet(self, info):

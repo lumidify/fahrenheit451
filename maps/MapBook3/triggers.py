@@ -1,1 +1,1 @@
-triggers = []
+triggers = [{'y': 10.75, 'trigger': ['TRYCHANGEMAP', 'maps/Final', 'Book 2'], 'height': 0.5, 'width': 0.5, 'x': 3.75}]
