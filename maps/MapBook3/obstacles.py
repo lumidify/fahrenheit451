@@ -1,0 +1,1 @@
+layers = [[{'height': 30.0, 'x': 0.0, 'y': 0.0, 'type': 'RECT', 'width': 0.5}, {'height': 0.5, 'x': 0.5, 'y': 0.0, 'type': 'RECT', 'width': 29.5}, {'height': 29.5, 'x': 29.5, 'y': 0.5, 'type': 'RECT', 'width': 0.5}, {'height': 0.5, 'x': 0.5, 'y': 29.5, 'type': 'RECT', 'width': 29.0}], []]

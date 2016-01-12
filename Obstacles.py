@@ -64,8 +64,8 @@ class Bullet():
                 self.frame = 0
         self.current_time = current_time
     def draw(self, screen_offset):
-        isox = ((self.grid_pos[0] - 0.2) - (self.grid_pos[1] - 0.2)) * (ISOWIDTH // 2) + (self.images[self.direction][self.frame]["offset"][0] + TILEWIDTH // 2 + screen_offset[0])
-        isoy = ((self.grid_pos[0] - 0.2) + (self.grid_pos[1] - 0.2)) * (ISOHEIGHT // 2) + (self.images[self.direction][self.frame]["offset"][1] + screen_offset[1])
+        isox = ((self.grid_pos[0] - 0.2) - (self.grid_pos[1] - 0.2)) * (ISOWIDTH // 2) + (self.images[self.direction][self.frame]["offset"][0] + screen_offset[0])
+        isoy = ((self.grid_pos[0] - 0.2) + (self.grid_pos[1] - 0.2)) * (ISOHEIGHT // 2) + (self.images[self.direction][self.frame]["offset"][1] + TILEHEIGHT // 2 + screen_offset[1])
         self.screen.blit(self.images[self.direction][self.frame]["image"], (isox, isoy))
 def calculate_rect(grid_pos, borders):
     return Rect((
@@ -283,8 +283,8 @@ class Item():
         self.item_info = kwargs["item_info"]
         self.label = kwargs.get("label", None)
         self.identifier = kwargs.get("id", None)
-        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (self.offset[0] + TILEWIDTH // 2)
-        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
+        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + self.offset[0]
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1] + TILEHEIGHT // 2
         self.realrect = Rect((self.isox, self.isoy), self.image.get_size())
         self.selected = False
         self.selectable = True

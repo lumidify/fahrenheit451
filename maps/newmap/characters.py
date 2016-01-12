@@ -1,1 +1,1 @@
-characters = [{'random_walk_area': [19.0, 3.0, 10.0, 10.0], 'x': 22.2734375, 'name': 'GUA', 'ondeath': [], 'id': '', 'y': 7.3515625}]
+characters = [{'y': 7.3515625, 'name': 'GUA', 'random_walk_area': [19.0, 3.0, 10.0, 10.0], 'id': '', 'x': 22.2734375, 'ondeath': []}, {'y': 8.5234375, 'name': '420', 'direction': 'S', 'id': '', 'x': 5.7890625, 'ondeath': []}]

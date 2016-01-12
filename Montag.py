@@ -134,7 +134,6 @@ class Montag(Character):
             if self.pressed and mouse_pos != self.last_mouse_pos and self.state != "attack":
                 self.after_walk = None
                 self.last_mouse_pos = mouse_pos
-                mouse_pos = [mouse_pos[0] - TILEWIDTH // 2, mouse_pos[1]]
                 x = ((mouse_pos[0] / (TILEWIDTH // 2)) + (mouse_pos[1] / (TILEHEIGHT // 2))) / 2
                 y = (((mouse_pos[0] / (TILEWIDTH // 2)) - mouse_pos[1] / (TILEHEIGHT // 2))) / -2
                 self.marker_pos = (x, y)
@@ -150,8 +149,9 @@ class Montag(Character):
         super().update(current_time)
     def draw(self, screen_offset):
         self.last_screen_offset = screen_offset
+        print(self.grid_pos)
         if not self.dead and self.walk_to_points:
-            isox = (self.marker_pos[0] - self.marker_pos[1]) * (TILEWIDTH // 2) + 49
-            isoy = (self.marker_pos[0] + self.marker_pos[1]) * (TILEHEIGHT // 2) - 7
+            isox = (self.marker_pos[0] - self.marker_pos[1]) * (TILEWIDTH // 2) - 16
+            isoy = (self.marker_pos[0] + self.marker_pos[1]) * (TILEHEIGHT // 2) - 8
             self.screen.blit(self.target_image, (isox + screen_offset[0], isoy + screen_offset[1]))
         super().draw(screen_offset)

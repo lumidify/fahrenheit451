@@ -25,8 +25,8 @@ class Tile():
         self.region = tile_dict["region"]
         self.offset = tile_dict["offset"]
         self.grid_pos = grid_pos
-        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (self.offset[0] + TILEWIDTH // 2)
-        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1]
+        self.isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + self.offset[0]
+        self.isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + self.offset[1] + TILEHEIGHT // 2
     def update(self, current_time=None):
         pass
     def draw(self, screen_offset):
@@ -42,8 +42,8 @@ class AnimatedTile():
         self.update_interval = 1000 // tile_dict.get("fps", 30)
         self.iso_positions = []
         for offset in self.offsets:
-            isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (offset[0] + TILEWIDTH // 2)
-            isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + offset[1]
+            isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + offset[0]
+            isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + offset[1] + TILEHEIGHT // 2
             self.iso_positions.append([isox, isoy])
         self.frame = 0
         self.current_time = pygame.time.get_ticks()

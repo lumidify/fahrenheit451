@@ -198,8 +198,8 @@ class Character():
             tile_dict = self.images[self.direction]["death"][-1]
         else:
             tile_dict = self.images[self.direction][self.state][self.frame]
-        isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + (tile_dict["offset"][0] + TILEWIDTH // 2)
-        isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + (tile_dict["offset"][1])
+        isox = (self.grid_pos[0] - self.grid_pos[1]) * (TILEWIDTH // 2) + tile_dict["offset"][0]
+        isoy = (self.grid_pos[0] + self.grid_pos[1]) * (TILEHEIGHT // 2) + tile_dict["offset"][1]
         #Update self.realrect here since isox and isoy are already computed
         self.realrect = Rect((isox, isoy), tile_dict["size"])
         if self.selected and not self.dead:
