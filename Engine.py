@@ -182,10 +182,10 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         engine.load_map(sys.argv[1])
     else:
-        engine.load_map("maps/MapBook1_")
+        engine.load_map("maps/MapBook1")
     while True:
         screen.fill((0, 0, 0))
-        clock.tick(60)
+        clock.tick()
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
