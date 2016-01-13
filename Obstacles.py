@@ -91,6 +91,8 @@ class Trigger():
             temp.update({"deactivate_after_use": self.deactivate_after_use})
         if not self.active:
             temp.update({"active": self.active})
+        if self.identifier:
+            temp.update({"id": self.identifier})
         return temp
     def get_rect(self, rect_type):
         if rect_type == "rect":

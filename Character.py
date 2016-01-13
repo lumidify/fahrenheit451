@@ -96,7 +96,9 @@ class Character():
     def walk(self):
         magnitude = self.walk_time_passed / self.individual_frame_time
         self.walk_time_passed = 0
-        self.state = "walk"
+        if self.state != "walk":
+            self.frame = 0
+            self.state = "walk"
         deltax = self.walk_to_points[0][0] - self.grid_pos[0]
         deltay = self.grid_pos[1] - self.walk_to_points[0][1]
         self.calc_dir_vel(deltax, deltay)
@@ -140,6 +142,8 @@ class Character():
         self.perfect_angle = math.atan2(deltay, deltax)
         self.direction = self.direction_angles[round(math.degrees(self.perfect_angle) / 45) * 45]
     def attack(self, character):
+        if self.state != "attack":
+            self.frame = 0
         try:
             if self.movement_state == "waypoints":
                 self.remaining_waypoints.insert(0, self.walk_to_points[0])

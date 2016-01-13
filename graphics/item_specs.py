@@ -871,7 +871,7 @@ items = [
     "label": "Exterminator",
     "slot": "weapon",
     "weapon": {
-        "damage": 40,
+        "damage": 5,
         "attack_time": 1.0000000,
         "reloading_time": 4.500000,
         "reloading_sound": "effects/item_sounds/Item_Range_Weapon_Put_Sound_0.ogg",
