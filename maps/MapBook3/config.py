@@ -1,1 +1,1 @@
-config = {'music': 'Once_Upon_A_Time.ogg', 'spawn_pos': [2.0, 2.0], 'level_dimensions': [30, 30]}
+config = {'spawn_pos': [2.0, 2.0], 'music': 'Once_Upon_A_Time.ogg', 'level_dimensions': [30, 30]}
