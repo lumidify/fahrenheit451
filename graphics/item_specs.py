@@ -1308,7 +1308,7 @@ items = [
     "label": "Droid Advanced Twin Laser",
     "slot": "weapon",
     "weapon": {
-        "damage": 15,
+        "damage": 10,
         "attack_time": 1.400000,
         "reloading_time": 2.600000,
         "melee": False,

@@ -105,13 +105,15 @@ class Trigger():
 class BasicObstacle():
     def __init__(self, grid_pos, width, height, obstype, **kwargs):
         self.grid_pos = grid_pos
+        self.width = width
+        self.height = height
         self.type = obstype
         self.rect = Rect(grid_pos[0] * WIDTH, grid_pos[1] * HEIGHT, width * WIDTH, height * HEIGHT)
         self.realrect = Rect(0, 0, 0, 0)
         self.identifier = kwargs.get("id", None)
         self.selectable = False
     def get_dict(self):
-        temp = {"x": self.x, "y": self.y, "width": self.width, "height": self.height, "type": self.type}
+        temp = {"x": self.grid_pos[0], "y": self.grid_pos[1], "width": self.width, "height": self.height, "type": self.type}
         if self.identifier:
             temp.update({"id": self.identifier})
         return temp
@@ -382,7 +384,6 @@ class Obstacles():
             spawn_pos = [float(x) for x in spawn_pos]
         except:
             pass
-        print(book)
         if self.player.has_book(book):
             self.engine.load_map(new_map, spawn_pos=spawn_pos)
     def add_bullet(self, info):

@@ -119,7 +119,7 @@ class BasicObstacle():
         self.width = kwargs.get("width", 1)
         self.height = kwargs.get("height", 1)
         self.type = kwargs.get("type", "RECT")
-        self.identifier = kwargs.get("identifier", None)
+        self.identifier = kwargs.get("id", None)
         self.selected = False
         self.generate_points()
     def set_values(self, **kwargs):
@@ -127,7 +127,7 @@ class BasicObstacle():
         self.y = kwargs.get("y", self.y)
         self.width = kwargs.get("width", self.width)
         self.height = kwargs.get("height", self.height)
-        self.identifier = kwargs.get("identifier", self.identifier)
+        self.identifier = kwargs.get("id", self.identifier)
         self.generate_points()
     def select(self):
         self.selected = True

@@ -19,7 +19,7 @@ def call_trigger(trigger, obstaclemap, identifier, obstacle):
         if trigger[1] == "obstacle":
             obstaclemap.add_obstacle(info=trigger[2])
         elif trigger[1] == "item":
-            obstaclemap.add_item(info=trigger[2])
+            obstaclemap.add_item({"type": trigger[2], "x": obstacle.grid_pos[0], "y": obstacle.grid_pos[1]})
     elif trigger[0] == "KILLALL":
         obstaclemap.killall()
     elif trigger[0] == "SPAWN":

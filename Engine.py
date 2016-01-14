@@ -71,6 +71,8 @@ class Engine():
             f.write("player_config = " + repr(player_config))
     def load_game(self):
         if os.path.isdir("save"):
+            self.wongame = False
+            self.lostgame = False
             player_config = load_module(os.path.join("save", "config.py")).player_config.copy()
             self.player.reset()
             self.player.dead = player_config["dead"]
@@ -78,7 +80,7 @@ class Engine():
             self.saved_maps = os.listdir("save")
             self.current_map = player_config["current_map"]
             self.player.health = player_config["health"]
-            self.saved_maps = os.listdir("save")
+            self.saved_maps = [os.path.join("maps", x) for x in os.listdir("save/maps")]
             self.load_map(self.current_map, spawn_pos=player_config["grid_pos"])
             if player_config["won"]:
                 self.wingame()
@@ -88,6 +90,7 @@ class Engine():
         if path in self.saved_maps:
             self.saved_maps.remove(path)
             path = os.path.join("save", path)
+            self.current_map = None
         if self.current_map:
             self.loaded_maps[self.current_map] = {}
             self.loaded_maps[self.current_map]["floor"] = self.floor.layers.copy()
@@ -121,7 +124,7 @@ class Engine():
             self.obstacles.bullets = []
             self.config = load_module(os.path.join(path, "config.py")).config.copy()
         try:
-            pygame.mixer.music.load(self.config.get("music", "Search_Art_S31_Undercover_Operative_0.ogg"))
+            pygame.mixer.music.load(self.config.get("music", "Betrayed.ogg"))
             pygame.mixer.music.play(-1)
         except:
             pass
@@ -170,14 +173,11 @@ class Engine():
             self.screen.blit(FONT.render("FPS: " + str(round(clock.get_fps(), 2)), True, (255, 255, 255)), (self.screen.get_size()[0] - 400, 0))
 if __name__ == "__main__":
     pygame.init()
-    clock.tick()
-    # fps = clock.get_fps()
-    # str_fps = str(round(fps,9))
     screen_info = pygame.display.Info()
     screen_size = [screen_info.current_w, screen_info.current_h]
     screen = pygame.display.set_mode(screen_size, RESIZABLE)
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Fahrenheit 451") # - FPS: " + str_fps)
+    pygame.display.set_caption("Fahrenheit 451")
     engine = Engine(screen)
     if len(sys.argv) > 1:
         engine.load_map(sys.argv[1])
