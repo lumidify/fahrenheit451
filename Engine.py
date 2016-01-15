@@ -81,6 +81,7 @@ class Engine():
             self.current_map = player_config["current_map"]
             self.player.health = player_config["health"]
             self.saved_maps = [os.path.join("maps", x) for x in os.listdir("save/maps")]
+            self.loaded_maps = {}
             self.load_map(self.current_map, spawn_pos=player_config["grid_pos"])
             if player_config["won"]:
                 self.wingame()

@@ -567,7 +567,7 @@ description=Some people say that every doctor is addicted to drugs. You estimate
 
 ** Start of new Robot: ** 
 droidname=GUA
-label=Red Guard
+label=Fireman
 portrait_path=NONE_AVAILABLE_YET
 speed=0.25
 class=18
