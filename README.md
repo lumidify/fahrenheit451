@@ -9,6 +9,11 @@ One year after the city was destroyed, Montag was an avid member of the society 
 * Space: Attack
 * Click: Walk, pick up items, attack
 
+##Usage
++ You need Python 3 and Pygame installed for it to work.
++ Run ``python3 Engine.py`` to run the game.
++ Run ``python3 Editor.py`` to run the editor.
+
 ##Notes
 * This is still in a very early stage (think pre-pre-alpha), so expect quite a few bugs.
 * This game uses the GPLv2.0 License. A list of credits can be found in CREDITS.txt.
