@@ -8,4 +8,4 @@ Scifi.ogg: by Alexandr Zhelanov <https://soundcloud.com/alexandr-zhelanov>, http
 Once_Upon_A_Time.ogg: Couldn't find it anymore on OpenGameArt.org
 
 Configuration Files for Graphics (e.g. graphics/item_specs.py): Taken from FreedroidRPG, modified, and some converted to Python
-Code: Lumidify Productions
+Code: Lumidify Productions, Gryffyn
